@@ -1,0 +1,4 @@
+*.o
+/objs
+*.sw*
+libft.a
