@@ -4,12 +4,12 @@ int			main()
 	int real;
 	int fake;
 
-	printf("Real printf : \n");
-	real = printf("%lli", (long long)0x11ff11ff11ff11ff);
-	printf("\nFalse printf : \n");
-	fake = ft_printf("%lli", (long long)0x11ff11ff11ff11ff);
-	printf("\n");
-	printf("real : %d fake : %d\n", real, fake);
+//	dprintf(1, "Real printf : \n");
+	real = printf("%-7d", 7799);
+//	dprintf(1, "\n");
+	fake = ft_printf("%-7d", 7789);
+//	dprintf(1, "\n");
+//	dprintf(1, "real : %d fake : %d\n", real, fake);
 	if (real == fake) 
 	{
 		printf("Both are the same");

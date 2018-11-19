@@ -57,10 +57,10 @@ int		ft_printf(const char *format, ...)
 	maillons = NULL;
 	if (!(parsing(format, &maillons)))
 		return (-1);
+	//lire_maillons(&maillons);
 	va_start(ap, format);
 	if (!(traitement(ap, &maillons)))
 		return (-1);
 	retour = lecture(&maillons);
-//	lire_maillons(&maillons);
 	return (retour);
 }

@@ -3,7 +3,7 @@
 int					attributs(char const *format, int **i, t_maillon **maillon)
 {
 	if (format[**i - 1] != '%')
-		return (0);
+		return (1);
 	while (est_attribut(format[**i]))
 	{
 		if (format[**i] == '#')

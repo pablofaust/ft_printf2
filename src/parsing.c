@@ -72,6 +72,7 @@ int					parsing(const char *format, t_maillon **maillons)
 	t_maillon		*maillon;
 	int				i;
 	int				lon;
+	int				test;
 
 	i = 0;
 	lon = ft_strlen(format);
@@ -81,7 +82,7 @@ int					parsing(const char *format, t_maillon **maillons)
 			return (0);
 		if (format[i] == '%' && format[i + 1] && format[i + 1] != '%')
 		{
-			if (!(parse_conversion(format, &i, &maillon)))
+			if (!(test = parse_conversion(format, &i, &maillon)))
 				return (0);
 		}
 		else

@@ -93,7 +93,7 @@ int			conversion_int(va_list ap, t_maillon **maillon)
 	modif = ((*maillon)->modificateur ) ? trans_modif((*maillon)->modificateur) : '0';
 	if ((*maillon)->conversion == 'p')
 		chaine = hexa((long long)va_arg(ap, void*), maillon);
-	else if ((modif == '0' || modif == 'L') && (*maillon)->conversion != 'D')
+	else if (modif == '0' && (*maillon)->conversion != 'D')
 		chaine = ft_itoa(va_arg(ap, int));
 	else if (modif == 'H' && (*maillon)->conversion != 'D')
 		chaine = ft_itoa((char)va_arg(ap, int));
@@ -101,6 +101,8 @@ int			conversion_int(va_list ap, t_maillon **maillon)
 		chaine = ft_itoa_ll((short)va_arg(ap, int));
 	else if (modif == 'l' || (*maillon)->conversion == 'D')
 		chaine = ft_itoa_ll(va_arg(ap, long));
+	else if (modif == 'L')
+		chaine = ft_itoa_ll(va_arg(ap, long long));
 	else if (modif == 'j')
 		chaine = ft_itoa_ll(va_arg(ap, intmax_t));
 	else if (modif == 'z')
