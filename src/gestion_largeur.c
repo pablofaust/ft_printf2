@@ -53,8 +53,9 @@ char		*largeur_apr(t_maillon **maillon, char *nouvelle, int largeur)
 	i = -1;
 	while (chaine[++i]) 
 		nouvelle[i] = chaine[i];
-	while (i <= largeur)
+	while (i < largeur)
 		nouvelle[i++] = ' ';
+	nouvelle[i] = '\0';
 	return (nouvelle);
 }
 
@@ -75,6 +76,5 @@ char		*gestion_largeur(t_maillon **maillon, int largeur, int initial)
 		else
 			nouvelle = largeur_av(maillon, nouvelle, precision, initial);
 	}
-//	free((*maillon)->chaine);
 	return (nouvelle);
 }

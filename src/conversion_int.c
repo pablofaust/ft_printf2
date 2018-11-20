@@ -69,17 +69,36 @@ char		trans_modif(char *modif)
 		return ('0');
 }
 
+int			exceptions(char c)
+{
+	if (c == 'U' || c == '0' || c == 'p')
+		return (1);
+	return (0);
+}
+
 int			conversion_uint(va_list ap, t_maillon **maillon)
 {
 	char	*chaine;
 	int		base;
+	char	modif;
 
 	chaine = NULL;
 	base = connaitre_base((*maillon)->conversion);
-	if ((*maillon)->conversion == 'X')
-		chaine = ft_itoa_base_uint(va_arg(ap, unsigned int), base, 'A');
+	modif = ((*maillon)->modificateur) ? trans_modif((*maillon)->modificateur) : '0';
+	if (modif == 'h' && !exceptions((*maillon)->conversion))
+		chaine = ft_itoa_base((unsigned short)va_arg(ap, unsigned int), base);
+	else if (modif == 'H' && !exceptions((*maillon)->conversion))
+		chaine = ft_itoa_base((unsigned char)va_arg(ap, unsigned int), base);
+	else if (modif == 'l' || exceptions((*maillon)->conversion))
+		chaine = ft_itoa_base_ll(va_arg(ap, unsigned long), base);
+	else if (modif == 'L')
+		chaine = ft_itoa_base_ll(va_arg(ap, unsigned long long), base);
+	else if (modif == 'j')
+		chaine = ft_itoa_base_ll(va_arg(ap, uintmax_t), base);
+	else if (modif == 'z')
+		chaine = ft_itoa_base_ll(va_arg(ap, size_t), base);
 	else
-		chaine = ft_itoa_base_uint(va_arg(ap, unsigned int), base, 'a');
+		chaine = ft_itoa_base(va_arg(ap, unsigned int), base);
 	(*maillon)->chaine = chaine;
 	return (ecrit_int(maillon));
 }
