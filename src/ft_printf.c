@@ -1,6 +1,24 @@
 #include "ft_printf.h"
 
-int	lecture(t_maillon **maillons)
+char	*en_majuscules(char *chaine)
+{
+	char	*nouvelle;
+	char	c;
+	int		i;
+
+	nouvelle = ft_strnew(ft_strlen(chaine));
+	i = 0;
+	while (chaine[i])
+	{
+		c = chaine[i];
+		nouvelle[i] = (c >= 97 && c <= 122) ? c - 32 : c;
+		i++;
+	}
+	free(chaine);
+	return (nouvelle);
+}
+
+int		lecture(t_maillon **maillons)
 {
 	t_maillon	*pointeur;
 	int		len;
@@ -14,6 +32,8 @@ int	lecture(t_maillon **maillons)
 		if (pointeur->chaine != NULL)
 		{
 			len = ft_strlen(pointeur->chaine);
+			if (pointeur->conversion == 'X')
+				pointeur->chaine = en_majuscules(pointeur->chaine);
 			write(1, pointeur->chaine, len);
 			retour = retour + len;
 		}

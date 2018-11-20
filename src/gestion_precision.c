@@ -69,7 +69,7 @@ char		*modif_precision(t_maillon **maillon, int precision, int initial)
 	char	c;
 
 	c = (*maillon)->conversion;
-	if (c == 'd' || c == 'i')
+	if (c == 'd' || c == 'i' || c == 'u' || c == 'o' || c == 'x' || c == 'X')
 		return (precision_int(maillon));
 	else if (c == 's')
 		return (precision_char(maillon, precision, initial));

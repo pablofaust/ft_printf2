@@ -38,14 +38,14 @@ int			ecrit_int(t_maillon **maillon)
 	if ((*maillon)->chaine[0] == '-')
 		(*maillon)->neg = 1;
 	precision = ((*maillon)->precision) ? ft_atoi((*maillon)->precision) : 0;
-	if ((*maillon)->att_hash)
-		((*maillon)->chaine = modif_hash(maillon, (*maillon)->conversion));
 	if ((*maillon)->att_plus)
 		(*maillon)->chaine = modif_plus(maillon, '+');	
 	if (!(*maillon)->att_plus && (*maillon)->att_espace)
 		(*maillon)->chaine = modif_plus(maillon, ' ');	
 	if ((*maillon)->precision != NULL)
 		(*maillon)->chaine = modif_precision(maillon, precision, initial);
+	if ((*maillon)->att_hash)
+		((*maillon)->chaine = modif_hash(maillon, (*maillon)->conversion));
 	if (largeur && largeur > initial)
 		(*maillon)->chaine = gestion_largeur(maillon, largeur, initial);
 	return (1);
