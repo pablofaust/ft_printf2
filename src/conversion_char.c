@@ -33,32 +33,49 @@ int		ecrit_char(t_maillon **maillon)
 	return (1);
 }
 
+char	*conversion_c(va_list ap)
+{
+	char	c;
+	char	*chaine;
+
+	c = va_arg(ap, int);
+	chaine = NULL;
+	if (c)
+	{
+		if (!(chaine = ft_strnew(1)))
+			return (NULL);
+		chaine[0] = c;
+	}
+	return (chaine);
+}
+
+char	*conversion_s(va_list ap)
+{
+	char	*arg;
+	char	*chaine;
+
+	arg = va_arg(ap, char*);
+	chaine = NULL;
+	if (arg)
+	{
+		if (!(chaine = ft_strnew(ft_strlen(arg))))
+			return (NULL);
+		chaine = arg;
+	}
+	return (chaine);
+}
+
 int		conversion_char(va_list ap, t_maillon **maillon)
 {
 	char	*chaine;
 	char	modif;
-	char	c;
-	char	*arg;
 
 	chaine = NULL;
 	modif = ((*maillon)->modificateur ) ? trans_modif((*maillon)->modificateur) : '0';
-	arg = va_arg(ap, char*);
 	if ((*maillon)->conversion == 's' && modif != 'l')
-	{
-		if (arg == NULL)
-		{
-			if (!(chaine = ecrit_null()))
-				return (0);
-		}
-		else
-			chaine = arg;
-	}
+		chaine = conversion_s(ap);
 	else if ((*maillon)->conversion == 'c' || (*maillon)->conversion == 'C')
-	{
-		c = va_arg(ap, int);
-		chaine = ft_strnew(1);
-		chaine[0] = c;
-	}
+		chaine = conversion_c(ap);
 	(*maillon)->chaine = chaine;
 	return (ecrit_char(maillon));
 }
