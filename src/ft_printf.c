@@ -18,6 +18,22 @@ char	*en_majuscules(char *chaine)
 	return (nouvelle);
 }
 
+static int		largeur_pourcent(t_maillon *maillon)
+{
+	int		lon;
+	int		i;
+
+	free(maillon->chaine);
+	lon = ft_atoi(maillon->largeur);
+	if (!(maillon->chaine = ft_strnew(lon)))
+		return (0);
+	i = 0;
+	while (i < lon - 1)
+		maillon->chaine[i++] = ' ';
+	maillon->chaine[i] = '%';
+	return (1);
+}
+
 int		lecture(t_maillon **maillons)
 {
 	t_maillon	*pointeur;
@@ -31,6 +47,11 @@ int		lecture(t_maillon **maillons)
 	{
 		if (pointeur->chaine != NULL)
 		{
+			if (pointeur->ordinaires == 1 && pointeur->largeur != NULL)
+			{
+				if (!(largeur_pourcent(pointeur)))
+					return (0);
+			}
 			len = ft_strlen(pointeur->chaine);
 			if (pointeur->conversion == 'X')
 				pointeur->chaine = en_majuscules(pointeur->chaine);

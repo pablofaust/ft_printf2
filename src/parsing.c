@@ -67,6 +67,46 @@ static int		parse_conversion(const char *format, int *i, t_maillon **maillon)
 	return (1);
 }
 
+static int		ch_pourcent(const char *format, int *i)
+{
+	int		j;
+	j = *i + 1;
+
+	while (format[j] && ft_isdigit(format[j]))
+		(j)++;
+	if (format[j] == '%')
+		return (j - *i - 1);
+	return (0);
+}
+
+static int		parse_pourcent(const char *format, int *i, t_maillon **maillon)
+{
+	int		j;
+	int		lon;
+
+	if ((format[*i + 1] && format[*i + 1] == '%') ||
+	   		(format[*i + 1] && format[*i + 1] == ' ' && format[*i + 2] && format[*i + 2] == '%'))
+	{
+		(*maillon)->ordinaires = 1;
+		if (!((*maillon)->chaine = ft_strnew(1)))
+			return (0);
+		(*maillon)->chaine[0] = '%';
+		*i = (format[*i + 1] == '%') ? *i + 1 : *i + 2;
+		return (1);
+	}
+	j = 0;
+	if (format[*i + 1] && (lon = ch_pourcent(format, i)))
+	{
+		(*i)++;
+		(*maillon)->ordinaires = 1;
+		if (!((*maillon)->largeur = ft_strnew(lon)))
+			return (0);
+		while (j < lon)
+			(*maillon)->largeur[j++] = format[(*i)++];
+	}
+	return (1);
+}
+
 int					parsing(const char *format, t_maillon **maillons)
 {
 	t_maillon		*maillon;
@@ -80,6 +120,8 @@ int					parsing(const char *format, t_maillon **maillons)
 	{
 		if (!(maillon = creer_maillon()))
 			return (0);
+		if (format[i] == '%')
+			parse_pourcent(format, &i, &maillon);
 		if (format[i] == '%' && format[i + 1] && format[i + 1] != '%')
 		{
 			if (!(test = parse_conversion(format, &i, &maillon)))
