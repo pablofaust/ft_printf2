@@ -72,8 +72,10 @@ static int		ch_pourcent(const char *format, int *i)
 	int		j;
 	j = *i + 1;
 
+	if (format[j] == '-')
+		j++;
 	while (format[j] && ft_isdigit(format[j]))
-		(j)++;
+		j++;
 	if (format[j] == '%')
 		return (j - *i - 1);
 	return (0);
@@ -135,5 +137,6 @@ int					parsing(const char *format, t_maillon **maillons)
 		ajouter_maillon(maillons, maillon);
 		i++;
 	}
+	//lire_maillons(maillons);
 	return (1);
 }

@@ -25,12 +25,21 @@ static int		largeur_pourcent(t_maillon *maillon)
 
 	free(maillon->chaine);
 	lon = ft_atoi(maillon->largeur);
-	if (!(maillon->chaine = ft_strnew(lon)))
+	if (!(maillon->chaine = ft_strnew(ABS(lon))))
 		return (0);
 	i = 0;
-	while (i < lon - 1)
-		maillon->chaine[i++] = ' ';
-	maillon->chaine[i] = '%';
+	if (lon < 0)
+	{
+		maillon->chaine[i++] = '%';
+		while (i < ABS(lon))
+			maillon->chaine[i++] = ' ';
+	}
+	else
+	{
+		while (i < ABS(lon) - 1)
+			maillon->chaine[i++] = ' ';
+		maillon->chaine[i] = '%';
+	}
 	return (1);
 }
 
