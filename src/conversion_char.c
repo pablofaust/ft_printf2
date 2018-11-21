@@ -64,6 +64,11 @@ char	*conversion_s(va_list ap)
 			return (NULL);
 		chaine = arg;
 	}
+	else
+	{
+		if (!(chaine = ecrit_null()))
+			return (NULL);
+	}
 	return (chaine);
 }
 
