@@ -30,6 +30,8 @@ char		*precision_int(t_maillon **maillon)
 	lon = ft_strlen(chaine);
 	signe = (chaine[0] == '-' || chaine[0] == '+' || chaine[0] == ' ') ? 1 : 0;
 	precision = ((*maillon)->precision) ? ft_atoi((*maillon)->precision) : 0;
+	if (precision == 0 && (*maillon)->precision[0] == '.' && (*maillon)->chaine == NULL)
+		return (NULL);
 	if (precision > lon - signe)
 	{
 		if (!(nouvelle = ft_strnew(precision + signe)))
@@ -50,6 +52,8 @@ char		*precision_char(t_maillon **maillon, int precision, int initial)
 	char	*nouvelle;
 	int		i;
 
+	if (precision == 0 && (*maillon)->precision[0] == '.')
+		return (NULL);
 	chaine = (*maillon)->chaine;
 	if (precision < initial) 
 	{

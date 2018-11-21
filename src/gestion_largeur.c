@@ -59,11 +59,30 @@ char		*largeur_apr(t_maillon **maillon, char *nouvelle, int largeur)
 	return (nouvelle);
 }
 
+char		*largeur_nulle(int largeur)
+{
+	char	*chaine;
+	int		i;
+
+	if (!(chaine = ft_strnew(largeur)))
+		return (NULL);
+	i = 0;
+	while (i < largeur)
+		chaine[i++] = ' ';
+	return (chaine);
+}
+
 char		*gestion_largeur(t_maillon **maillon, int largeur, int initial)
 {
 	char	*nouvelle;
 	int	precision;
 
+	if ((*maillon)->chaine == NULL)
+	{
+		if (!(nouvelle = largeur_nulle(largeur)))
+			return (NULL);
+		return (nouvelle);
+	}
 	precision = ((*maillon)->precision != NULL) ? ft_atoi((*maillon)->precision) : 0;
 	if (!(nouvelle = ft_strnew(largeur)))
 		return ((*maillon)->chaine);

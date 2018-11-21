@@ -69,6 +69,11 @@ int				precision(const char *format, int **i, t_maillon **maillon)
 	if (!((*maillon)->precision = malloc(sizeof(char) * nb + 1)))
 		return (0);
 	k = 0;
+	if (nb == 0)
+	{
+		(*maillon)->precision[0] = '.';
+		k++;
+	}
 	while (ft_isdigit(format[**i]))
 	{
 		(*maillon)->precision[k] = format[**i];

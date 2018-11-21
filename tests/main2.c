@@ -5,10 +5,10 @@ int			main()
 	int fake;
 
 	printf("Real printf : \n");
-	real = printf("%.0u", 0);
+	real = printf("%.s", "coco");
 	printf("\n");
 	printf("Fake printf : \n");
-	fake = ft_printf("%.0u", 0);
+	fake = ft_printf("%.s", "coco");
 	printf("\n");
 	printf("real : %d fake : %d\n", real, fake);
 	if (real == fake) 

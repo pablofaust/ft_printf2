@@ -29,7 +29,7 @@ int		ecrit_char(t_maillon **maillon)
 	precision = ((*maillon)->precision) ? ft_atoi((*maillon)->precision) : 0;
 	if ((*maillon)->precision)
 		(*maillon)->chaine = modif_precision(maillon, precision, initial);
-	initial = ft_strlen((*maillon)->chaine);
+	initial = ((*maillon)->chaine != NULL) ? ft_strlen((*maillon)->chaine) : 0;
 	if (largeur && largeur > initial)
 		(*maillon)->chaine = gestion_largeur(maillon, largeur, initial);
 	return (1);
