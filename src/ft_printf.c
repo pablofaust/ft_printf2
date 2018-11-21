@@ -32,12 +32,12 @@ static int		largeur_pourcent(t_maillon *maillon)
 	{
 		maillon->chaine[i++] = '%';
 		while (i < ABS(lon))
-			maillon->chaine[i++] = ' ';
+			maillon->chaine[i++] = (maillon->largeur[0] == '0') ? '0' : ' ';
 	}
 	else
 	{
 		while (i < ABS(lon) - 1)
-			maillon->chaine[i++] = ' ';
+			maillon->chaine[i++] = (maillon->largeur[0] == '0') ? '0' : ' ';
 		maillon->chaine[i] = '%';
 	}
 	return (1);
