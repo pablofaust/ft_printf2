@@ -22,6 +22,8 @@ int		ecrit_char(t_maillon **maillon)
 	int		initial;
 	int		precision;
 
+	if ((*maillon)->chaine == NULL)
+		return (1);
 	largeur = ((*maillon)->largeur) ? ft_atoi((*maillon)->largeur) : 0;
 	initial = ft_strlen((*maillon)->chaine);
 	precision = ((*maillon)->precision) ? ft_atoi((*maillon)->precision) : 0;
