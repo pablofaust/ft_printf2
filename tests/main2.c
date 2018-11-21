@@ -5,10 +5,10 @@ int			main()
 	int fake;
 
 	printf("Real printf : \n");
-	real = printf("%012%");
+	real = printf("titi % +---12.5% et%%%0004% et %+1%");
 	printf("\n");
 	printf("Fake printf : \n");
-	fake = ft_printf("%012%");
+	fake = ft_printf("titi % +---12.5% et%%%0004% et %+1%");
 	printf("\n");
 	printf("real : %d fake : %d\n", real, fake);
 	if (real == fake) 
