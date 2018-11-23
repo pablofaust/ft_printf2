@@ -6,44 +6,102 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 10:09:36 by pfaust            #+#    #+#             */
-/*   Updated: 2018/11/23 10:49:23 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/11/23 15:28:02 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 
-/*static int				ft_expo(double n)
+static int		ft_lon_entiers(double n)
 {
-	int		exp;
-	double	tmp;
+	int		entiers;
+	int		lon;
 
-	exp = 0;
-	tmp = n;
-	while (tmp > 1)
+	entiers = ABS((int)n);
+	lon = 0;
+	while (entiers > 0)
 	{
-		tmp = tmp / 10;
-		exp++;
+		entiers = entiers / 10;
+		lon++;
 	}
-	return (exp);
+	return (lon);
 }
 
-static int				ft_itoalen(long long n)
+static char		*ft_ajout_entiers(double n, int lon)
 {
-	int		len;
+	int		entiers;
+	int		pow;
+	char	*chaine;
+	int		i;
 
-	len = 0;
-	if (n == 0)
-		return (1);
-	while (n != 0)
+	if (!(chaine = ft_strnew(lon)))
+		return (NULL);
+	entiers = ABS((int)n);
+	if (entiers == 0)
 	{
-		n = n / 10;
-		len++;
+		chaine[0] = '0';
+		return (chaine);
 	}
-	return (len);
-}*/
+	pow = ft_pow(lon);
+	i = 0;
+	while (entiers > 0)
+	{
+		chaine[i++] = (entiers / pow) + 48;
+		entiers = entiers % pow;
+		pow = pow / 10;
+	}
+	return (chaine);
+}
 
-char					*ft_itoa_db(double n)
+static char		*ft_ajout_decimales(double n, int precision, int pow)
 {
-	return (0);
+	char	*chaine;
+	int		entiers;
+	int		decimales;
+	int		tmp1;
+	int		tmp2;
+	int		i;
+
+	if (!(chaine = ft_strnew(precision + 1)))
+		return (NULL);
+	entiers = (int)n;
+	decimales = n - (double)entiers;
+	tmp1 = ABS((int)(decimales * pow));
+	tmp2 = (int)(decimales * pow);
+	printf("entiers = %d, decimales = %d, tmp1 = %d, tmp2 = %d\n", entiers, decimales, tmp1, tmp2);
+	i = 0;
+	chaine[i++] = '.';
+	while (precision > 0)
+	{
+		pow = pow / 10;
+		chaine[i++] = (tmp2) ? (tmp1 / pow) + 48 : '0';
+		tmp1 = tmp1 % pow;
+		precision--;
+	}
+	printf("decimales = %s\n", chaine);
+	return (chaine);
+}
+
+char			*ft_itoa_db(double n, int precision)
+{
+	char	*chaine;
+	int		neg;
+	int		lon;
+	int		i;
+	int		pow;
+
+	neg = (n < 0) ? 1 : 0;
+	lon = ft_lon_entiers(n);
+	if (!(chaine = ft_strnew(lon + 1 + precision)))
+		return (NULL);
+	i = 0;
+	if (neg)
+		chaine[i++] = '-';
+	if (!(chaine = ft_strcat(chaine, ft_ajout_entiers(n, lon))))
+		return (NULL);
+	pow = ft_pow(precision + 1);
+	if (!(chaine = ft_strcat(chaine, ft_ajout_decimales(n, precision, pow))))
+		return (NULL);
+	return (chaine);
 }
