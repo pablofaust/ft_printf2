@@ -130,5 +130,7 @@ int				conversion(const char *format, int **i, t_maillon **maillon)
 		(*maillon)->fonction = conversion_uint;
 	else if (c == 'S')
 		(*maillon)->fonction = conversion_char;
+	else if (c == 'f')
+		(*maillon)->fonction = conversion_float;
 	return (1);
 }

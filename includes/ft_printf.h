@@ -49,6 +49,7 @@ int				traitement(va_list ap, t_maillon **maillons);
 int				conversion_char(va_list ap, t_maillon **maillon);
 int				conversion_int(va_list ap, t_maillon **maillon);
 int				conversion_uint(va_list ap, t_maillon **maillon);
+int				conversion_float(va_list ap, t_maillon **maillon);
 char			trans_modif(char *modif);
 char			*modif_plus(t_maillon **maillon, char c);
 char			*modif_hash(t_maillon **maillon, char c);

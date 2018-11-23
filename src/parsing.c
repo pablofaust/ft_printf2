@@ -21,7 +21,7 @@ int					est_conversion(char a)
 	if (a == 's' || a == 'S' || a == 'p' || a == 'd' || a == 'D' \
 			|| a == 'i' || a == 'o' || a == 'O' || a == 'u' \
 			|| a == 'U' || a == 'x' || a == 'X' || a == 'c' \
-			|| a == 'C')
+			|| a == 'C' || a == 'f')
 		return (1);
 	else
 		return (0);

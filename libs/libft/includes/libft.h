@@ -6,7 +6,7 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 16:30:07 by pfaust            #+#    #+#             */
-/*   Updated: 2018/10/18 10:44:51 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/11/23 10:33:41 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ char				*ft_itoa_base(int n, int base);
 char				*ft_itoa_base_uint(unsigned int n, int base, char a);
 char				*ft_itoa_base_ll(long long n, unsigned int base);
 char				*ft_itoa_base_ull(unsigned long long n, unsigned int base);
+char				*ft_itoa_db(double n);
 void				ft_putchar(char c);
 void				ft_putstr(const char *s);
 void				ft_putendl(const char *s);
