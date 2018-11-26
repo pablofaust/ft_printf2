@@ -6,12 +6,11 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 10:09:36 by pfaust            #+#    #+#             */
-/*   Updated: 2018/11/23 15:28:02 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/11/26 10:33:24 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 static int		ft_lon_entiers(double n)
 {
@@ -58,18 +57,18 @@ static char		*ft_ajout_decimales(double n, int precision, int pow)
 {
 	char	*chaine;
 	int		entiers;
-	int		decimales;
+	double	decimales;
 	int		tmp1;
 	int		tmp2;
 	int		i;
 
 	if (!(chaine = ft_strnew(precision + 1)))
 		return (NULL);
-	entiers = (int)n;
-	decimales = n - (double)entiers;
-	tmp1 = ABS((int)(decimales * pow));
+	i = -12;
+	entiers = ABS((int)n);
+	decimales = ABS(n) - (double)entiers;
+	tmp1 = (int)(decimales * pow);
 	tmp2 = (int)(decimales * pow);
-	printf("entiers = %d, decimales = %d, tmp1 = %d, tmp2 = %d\n", entiers, decimales, tmp1, tmp2);
 	i = 0;
 	chaine[i++] = '.';
 	while (precision > 0)
@@ -79,7 +78,6 @@ static char		*ft_ajout_decimales(double n, int precision, int pow)
 		tmp1 = tmp1 % pow;
 		precision--;
 	}
-	printf("decimales = %s\n", chaine);
 	return (chaine);
 }
 
