@@ -6,26 +6,12 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 10:09:36 by pfaust            #+#    #+#             */
-/*   Updated: 2018/11/26 10:33:24 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/11/26 11:41:11 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static int		ft_lon_entiers(double n)
-{
-	int		entiers;
-	int		lon;
-
-	entiers = ABS((int)n);
-	lon = 0;
-	while (entiers > 0)
-	{
-		entiers = entiers / 10;
-		lon++;
-	}
-	return (lon);
-}
+#include "stdio.h"
 
 static char		*ft_ajout_entiers(double n, int lon)
 {
@@ -53,7 +39,7 @@ static char		*ft_ajout_entiers(double n, int lon)
 	return (chaine);
 }
 
-static char		*ft_ajout_decimales(double n, int precision, int pow)
+static char		*ft_ajout_decimales(double n, int nb_d, long long pow)
 {
 	char	*chaine;
 	int		entiers;
@@ -62,35 +48,36 @@ static char		*ft_ajout_decimales(double n, int precision, int pow)
 	int		tmp2;
 	int		i;
 
-	if (!(chaine = ft_strnew(precision + 1)))
+	if (!(chaine = ft_strnew(nb_d)))
 		return (NULL);
 	i = -12;
 	entiers = ABS((int)n);
 	decimales = ABS(n) - (double)entiers;
 	tmp1 = (int)(decimales * pow);
 	tmp2 = (int)(decimales * pow);
+	printf("entiers = %d, decimales = %f, tmp1 = %d, tmp2 = %d\n", entiers, decimales, tmp1, tmp2);
 	i = 0;
 	chaine[i++] = '.';
-	while (precision > 0)
+	while (nb_d > 0)
 	{
 		pow = pow / 10;
 		chaine[i++] = (tmp2) ? (tmp1 / pow) + 48 : '0';
 		tmp1 = tmp1 % pow;
-		precision--;
-	}
+		nb_d--;
+	}	
 	return (chaine);
 }
 
 char			*ft_itoa_db(double n, int precision)
 {
-	char	*chaine;
-	int		neg;
-	int		lon;
-	int		i;
-	int		pow;
+	char		*chaine;
+	int			neg;
+	int			lon;
+	int			i;
+	long long	pow;
 
 	neg = (n < 0) ? 1 : 0;
-	lon = ft_lon_entiers(n);
+	lon = ft_nb_entiers(n);
 	if (!(chaine = ft_strnew(lon + 1 + precision)))
 		return (NULL);
 	i = 0;

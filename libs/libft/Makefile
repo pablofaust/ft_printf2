@@ -6,7 +6,7 @@
 #    By: pfaust <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 15:46:59 by pfaust            #+#    #+#              #
-#    Updated: 2018/11/23 10:36:13 by pfaust           ###   ########.fr        #
+#    Updated: 2018/11/26 11:34:44 by pfaust           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRC = ft_atoi ft_bzero ft_isalnum ft_isalpha ft_isascii \
 	ft_strtrim ft_tolower ft_toupper ft_pow ft_wordlen \
 	ft_nbwords ft_itoa_base_ll ft_itoa_base_ull ft_itoa_base \
 	ft_never_negative ft_itoa_ll ft_itoa_base_uint\
-	ft_itoa_db
+	ft_itoa_db ft_nb_entiers
 
 OBJS = $(addprefix objs/, $(addsuffix .o, \
 	   $(SRC) \

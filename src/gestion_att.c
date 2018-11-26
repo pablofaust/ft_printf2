@@ -47,10 +47,12 @@ char		*modif_plus(t_maillon **maillon, char c)
 	char	*chaine;
 	char	*nouvelle;
 	int		lon;
+	char	conversion;
 
 	chaine = (*maillon)->chaine;
 	lon = ft_strlen(chaine);
-	if ((*maillon)->conversion == 'd' || (*maillon)->conversion == 'i')
+	conversion = (*maillon)->conversion;
+	if (conversion == 'd' || conversion == 'i' || conversion == 'f')
 	{
 		if (chaine[0] != '-')
 		{
