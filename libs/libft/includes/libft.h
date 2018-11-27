@@ -98,4 +98,6 @@ int					ft_never_negative(int nb);
 int					ft_nb_entiers(double n);
 void				ft_print_bits(unsigned char octet);
 void				ft_binary_long(long n);
+char				*ft_truncate(char *str, int n, char c);
+char	*ft_cpyalpha(char *str);
 #endif
