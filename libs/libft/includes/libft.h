@@ -6,7 +6,7 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 16:30:07 by pfaust            #+#    #+#             */
-/*   Updated: 2018/11/26 11:34:31 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/11/27 10:46:11 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,6 @@ size_t				ft_wordlen(const char *s, int i, char c);
 size_t				ft_nbwords(const char *s, char c);
 int					ft_never_negative(int nb);
 int					ft_nb_entiers(double n);
+void				ft_print_bits(unsigned char octet);
+void				ft_binary_long(long n);
 #endif
