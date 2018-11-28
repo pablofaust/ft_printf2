@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/13 14:29:33 by pfaust            #+#    #+#             */
-/*   Updated: 2018/11/28 14:08:18 by pfaust           ###   ########.fr       */
+/*   Created: 2017/11/17 14:10:10 by pfaust            #+#    #+#             */
+/*   Updated: 2018/11/28 12:00:17 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_truncate(char *str, int n, char c)
+void	ft_putbinstr(const char *s)
 {
-	int	len;
-	char	*chunk;
-	int	i;
-	int	j;
+	unsigned int	i;
 
-	if (!str || !n || (c != '<' && c != '>'))
-		return (NULL);
-	len = ft_strlen(str) - n;
-	if (!(chunk = ft_strnew(len)))
-		return (NULL);
-	j = 0;
-	i = (c == '<') ? n : 0;
-	while (j < len)
-		chunk[j++] = str[i++];
-	return (chunk);
+	if (s)
+	{
+		i = 0;
+		while (s[i])
+		{
+			ft_putchar(s[i++]);
+			if (i % 4 == 0)
+				ft_putchar(' ');
+		}
+		ft_putchar('\n');
+	}
 }

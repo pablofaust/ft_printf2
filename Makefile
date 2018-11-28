@@ -6,7 +6,7 @@
 #    By: pfaust <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/20 11:10:04 by pfaust            #+#    #+#              #
-#    Updated: 2018/11/27 10:46:34 by pfaust           ###   ########.fr        #
+#    Updated: 2018/11/28 13:20:10 by pfaust           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ LIB_SRC = ft_atoi ft_bzero ft_isalnum ft_isalpha ft_isascii \
 	ft_nbwords ft_itoa_base_ll ft_itoa_base_ull ft_itoa_base \
 	ft_never_negative ft_itoa_ll ft_itoa_base_uint \
 	ft_itoa_db ft_nb_entiers ft_print_bits ft_binary_long\
-	ft_truncate ft_cpyalpha
+	ft_truncate ft_cpyalpha ft_putbinstr ft_dir_strncpy
 
 OBJS = $(addprefix objs/, $(addsuffix .o, \
 	   $(SRC) \

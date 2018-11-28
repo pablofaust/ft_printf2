@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/13 14:29:33 by pfaust            #+#    #+#             */
-/*   Updated: 2018/11/28 14:08:18 by pfaust           ###   ########.fr       */
+/*   Created: 2017/11/10 13:57:48 by pfaust            #+#    #+#             */
+/*   Updated: 2018/11/28 13:38:17 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h> 
 
-char	*ft_truncate(char *str, int n, char c)
+char	*ft_dir_strncpy(char *src, int n, char c)
 {
-	int	len;
-	char	*chunk;
-	int	i;
-	int	j;
+	char	*cpy;	
+	int		i;
+	int		j;
 
-	if (!str || !n || (c != '<' && c != '>'))
+	if (!src || !n || (c != '<' && c != '>'))
 		return (NULL);
-	len = ft_strlen(str) - n;
-	if (!(chunk = ft_strnew(len)))
+	if (!(cpy = ft_strnew(n)))
 		return (NULL);
 	j = 0;
-	i = (c == '<') ? n : 0;
-	while (j < len)
-		chunk[j++] = str[i++];
-	return (chunk);
+	i = (c == '<') ? 0 : ft_strlen(src) - n;
+	while (j < n)
+		cpy[j++] = src[i++];
+	return (cpy);
 }
