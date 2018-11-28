@@ -57,7 +57,7 @@ char	*ft_double_reals(double n, int *exp)
 				j = i + 1;
 			i++;
 		}
-		*exp = i - j;
+		*exp = (i > j ) ? i - j : j;
 		return (ft_dir_strncpy(reals, ABS(*exp), '>'));
 	}
 	else
@@ -74,22 +74,22 @@ char	*ft_fill_bits(double n, char *exp, char *reals, char* decimals)
 	if (!(bits = ft_strnew(32)))
 		return (NULL);
 	bits[0] = (n > 0) ? '0' : '1';
-	//ft_putstr("signe = ");
-	//ft_putbinstr(bits);
-	//ft_putstr("exp = ");
-	//ft_putbinstr(exp);
+	ft_putstr("signe = ");
+	ft_putbinstr(bits);
+	ft_putstr("exp = ");
+	ft_putbinstr(exp);
 	if (!(ft_strcat(bits, exp)))
 		return (NULL);
-	//ft_putstr("bits = ");
-	//ft_putbinstr(bits);
-	//ft_putstr("reals = ");
-	//ft_putbinstr(reals);
+	ft_putstr("bits = ");
+	ft_putbinstr(bits);
+	ft_putstr("reals = ");
+	ft_putbinstr(reals);
 	if (!(ft_strcat(bits, reals)))
 		return (NULL);
-	//ft_putstr("bits = ");
-	//ft_putbinstr(bits);
-	//ft_putstr("decimals = ");
-	//ft_putbinstr(decimals);
+	ft_putstr("bits = ");
+	ft_putbinstr(bits);
+	ft_putstr("decimals = ");
+	ft_putbinstr(decimals);
 	if (!(ft_strcat(bits, decimals)))
 		return (NULL);
 	//ft_putstr("bits = ");
@@ -108,9 +108,10 @@ char	*ft_doutoa(double n)
 	exp_int = 1;
 	if (!(reals = ft_double_reals(n, &exp_int)))
 		return (NULL);
-	if (!(exp_char = ft_itoa_base(exp_int + 127, 2)))
+	printf("exp = %d\n", exp_int);
+	if (!(exp_char = ft_itoa_base(exp_int + 126, 2)))
 		return (NULL);
-	if (!(decimals = ft_double_decimals(n, 23 - exp_int)))
+	if (!(decimals = ft_double_decimals(ABS(n) - (double)ABS((int)n), 23 - exp_int)))
 		return (NULL);
 	if (exp_int < 0)
 	{

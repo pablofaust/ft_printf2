@@ -6,7 +6,7 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 13:57:48 by pfaust            #+#    #+#             */
-/*   Updated: 2018/11/28 13:38:17 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/11/28 14:47:55 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_dir_strncpy(char *src, int n, char c)
 	int		i;
 	int		j;
 
-	if (!src || !n || (c != '<' && c != '>'))
+	if (!src || (c != '<' && c != '>'))
 		return (NULL);
 	if (!(cpy = ft_strnew(n)))
 		return (NULL);
