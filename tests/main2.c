@@ -8,7 +8,7 @@ int			main()
 	real = printf("%.7f", 3304950345.234234);
 	printf("\n");
 	printf("Fake printf : \n");
-	fake = ft_printf("%.7f", 1.1);
+	fake = ft_printf("%.7f", 0.30348530);
 	printf("\n");
 	printf("real : %d fake : %d\n", real, fake);
 	if (real == fake) 

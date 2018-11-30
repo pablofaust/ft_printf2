@@ -22,7 +22,28 @@ char	*ft_double_decimals(double n, int len)
 		decimals[i++] = (n >= 1) ? '1' : '0';
 		n = n - (int)n;
 	}
+//	ft_putstr("decimals = ");
+//	ft_putbinstr(decimals);
 	return (decimals);
+}
+
+char	*ft_complete_exp(char *str)
+{
+	int		len;
+	char	*exp;
+	int		i;
+
+	len = ft_strlen(str);
+	if (len == 8)
+		return (str);
+	if (!(exp = ft_strnew(8)))
+		return (NULL);
+	i = 0;
+	while (i < 8 - len)
+		exp[i++] = '0';
+	if (!(ft_strcat(exp, str)))
+		return (NULL);
+	return (exp);
 }
 
 void	ft_neg_exp(double n, int *exp)
@@ -36,7 +57,7 @@ void	ft_neg_exp(double n, int *exp)
 	i = 0;
 	while (decimals[i] && decimals[i] != '1')
 		i++;
-	*exp = -i;
+	*exp = -i - 1;
 }
 
 char	*ft_double_reals(double n, int *exp)
@@ -57,7 +78,8 @@ char	*ft_double_reals(double n, int *exp)
 				j = i + 1;
 			i++;
 		}
-		*exp = (i > j ) ? i - j : j;
+		*exp = (i > j ) ? i - j : j - 1;
+//		printf("exp = %d\n", *exp);
 		return (ft_dir_strncpy(reals, ABS(*exp), '>'));
 	}
 	else
@@ -80,14 +102,14 @@ char	*ft_fill_bits(double n, char *exp, char *reals, char* decimals)
 	ft_putbinstr(exp);
 	if (!(ft_strcat(bits, exp)))
 		return (NULL);
-	ft_putstr("bits = ");
-	ft_putbinstr(bits);
+//	ft_putstr("bits = ");
+//	ft_putbinstr(bits);
 	ft_putstr("reals = ");
 	ft_putbinstr(reals);
 	if (!(ft_strcat(bits, reals)))
 		return (NULL);
-	ft_putstr("bits = ");
-	ft_putbinstr(bits);
+//	ft_putstr("bits = ");
+//	ft_putbinstr(bits);
 	ft_putstr("decimals = ");
 	ft_putbinstr(decimals);
 	if (!(ft_strcat(bits, decimals)))
@@ -109,7 +131,7 @@ char	*ft_doutoa(double n)
 	if (!(reals = ft_double_reals(n, &exp_int)))
 		return (NULL);
 	printf("exp = %d\n", exp_int);
-	if (!(exp_char = ft_itoa_base(exp_int + 126, 2)))
+	if (!(exp_char = ft_complete_exp(ft_itoa_base(exp_int + 127, 2))))
 		return (NULL);
 	if (!(decimals = ft_double_decimals(ABS(n) - (double)ABS((int)n), 23 - exp_int)))
 		return (NULL);
