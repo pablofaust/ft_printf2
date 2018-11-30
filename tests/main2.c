@@ -5,7 +5,7 @@ int			main()
 	int fake;
 
 	printf("Real printf : \n");
-	real = printf("%.7f", 3304950345.234234);
+	real = printf("%.7f", 1.1);
 	printf("\n");
 	printf("Fake printf : \n");
 	fake = ft_printf("%.7f", 0.1);
