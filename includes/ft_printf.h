@@ -56,4 +56,6 @@ char			*modif_plus(t_maillon **maillon, char c);
 char			*modif_hash(t_maillon **maillon, char c);
 char			*modif_precision(t_maillon **maillon, int precision, int initial);
 char			*gestion_largeur(t_maillon **maillon, int largeur, int initial);
+char			*ft_double_reals(double n, int *exp);
+char			*ft_double_decimals(double n, int len);
 #endif
