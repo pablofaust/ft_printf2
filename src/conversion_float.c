@@ -1,5 +1,33 @@
 #include "ft_printf.h"
 
+char	*arrondi(char *str, unsigned long long tmp)
+{
+	int		len;
+	int		i;
+	int		neuf;
+
+	if (tmp < 5)
+		return (str);
+	len = ft_strlen(str);
+	i = len - 1;
+	if (str[i] && tmp >= 5)
+	{
+		neuf = 1;
+		while (str[i] && neuf == 1)
+		{
+			if (str[i] == '9')
+				str[i] = '0';
+			else
+			{
+				str[i]++;
+				neuf--;
+			}
+			i--;
+		}
+	}
+	return (str);
+}
+
 char	*doubles_decimales(double n, int precision)
 {
 	char				*chaine;
@@ -7,28 +35,21 @@ char	*doubles_decimales(double n, int precision)
 	long double			decimales;
 	int					i;
 	unsigned long long	tmp;
-	unsigned long long	pow_max;
 
-	pow_max = 1000000000000000000;
 	if (!(chaine = ft_strnew(precision)))
 		return (NULL);
-	pow = ft_pow(precision + 1);
+	pow = 1000000000000000000;
 	decimales = ABS(n) - (double)ABS((int)n);
-	tmp = (unsigned long long)(decimales * pow_max);
-	printf("diff = %llu\n", pow_max / pow);
+	tmp = (unsigned long long)(decimales * pow);
 	i = 0;
 	while (i < precision)
 	{
-		printf("pow = %llu, tmp = %.llu, tmp / pow = %llu\n", pow, tmp, tmp / pow);
+		pow = pow / 10;
 		chaine[i] = (decimales) ? (tmp / pow) + 48 : '0';
 		tmp = tmp % pow;
-		pow = pow / 10;
 		i++;
 	}
-	printf("tmp = %llu\n", tmp);
-	if (tmp)
-		printf("%llu\n", tmp / (pow_max / pow));
-	return (chaine);
+	return (arrondi(chaine, tmp / ft_int_pow(tmp)));
 }
 
 int		conversion_float(va_list ap, t_maillon **maillon)
@@ -41,14 +62,19 @@ int		conversion_float(va_list ap, t_maillon **maillon)
 	chaine = NULL;
 	modif = ((*maillon)->modificateur) ? trans_modif((*maillon)->modificateur) : '0';
 	arg = va_arg(ap, double);
-	precision = ((*maillon)->precision) ? ft_atoi((*maillon)->precision) : 6;
-	if (!(chaine = ft_itoa((int)arg)))
+	precision = ft_atoi((*maillon)->precision);
+	if (precision > 17 || !(*maillon)->precision)
+		precision = 6;
+	if (!(chaine = ft_strnew(ft_strlen(ft_itoa((int)arg)) + precision)))
+		return (0);
+	if (arg < 0)
+		chaine[0] = '-';
+	if (!(chaine = ft_strcat(chaine, ft_itoa(ABS((int)arg)))))
 		return (0);
 	if (!(chaine = ft_strcat(chaine, ".")))
 		return (0);
 	if (!(chaine = ft_strcat(chaine, doubles_decimales(arg, precision))))
 		return (0);
-	printf("chaine = %s\n", chaine);
 	(*maillon)->chaine = chaine;
 	return (1);
 }

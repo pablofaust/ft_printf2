@@ -6,7 +6,7 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 16:30:07 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/03 11:09:00 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/03 14:55:15 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 unsigned long long	ft_pow(unsigned int len);
+unsigned long long	ft_int_pow(unsigned long long n);
 size_t				ft_wordlen(const char *s, int i, char c);
 size_t				ft_nbwords(const char *s, char c);
 int					ft_never_negative(int nb);
