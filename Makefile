@@ -6,7 +6,7 @@
 #    By: pfaust <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/20 11:10:04 by pfaust            #+#    #+#              #
-#    Updated: 2018/11/30 11:19:08 by pfaust           ###   ########.fr        #
+#    Updated: 2018/12/03 09:37:01 by pfaust           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRC 		= ft_printf \
 			  gestion_precision \
 			  gestion_largeur \
 			  gestion_floats \
+			  doubles_binaires
 
 LIB_SRC = ft_atoi ft_bzero ft_isalnum ft_isalpha ft_isascii \
 	ft_isdigit ft_isprint ft_itoa ft_lstadd ft_lstdel \
