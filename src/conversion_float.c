@@ -4,27 +4,30 @@ char	*doubles_decimales(double n, int precision)
 {
 	char				*chaine;
 	unsigned long long	pow;
-	double				decimales;
+	long double			decimales;
 	int					i;
-	int					entiers;
 	unsigned long long	tmp;
+	unsigned long long	pow_max;
 
+	pow_max = 1000000000000000000;
 	if (!(chaine = ft_strnew(precision)))
 		return (NULL);
 	pow = ft_pow(precision + 1);
-	entiers = ABS((int)n);
-	decimales = ABS(n) - (double)entiers;
-	tmp = (unsigned long long)(decimales * pow);
-	printf("decimales = %f, tmp = %lld\n", decimales, tmp);
+	decimales = ABS(n) - (double)ABS((int)n);
+	tmp = (unsigned long long)(decimales * pow_max);
+	printf("diff = %llu\n", pow_max / pow);
 	i = 0;
 	while (i < precision)
 	{
-		pow = pow / 10;
-		printf("pow = %lld, decimales = %f\n", pow, decimales);
+		printf("pow = %llu, tmp = %.llu, tmp / pow = %llu\n", pow, tmp, tmp / pow);
 		chaine[i] = (decimales) ? (tmp / pow) + 48 : '0';
 		tmp = tmp % pow;
+		pow = pow / 10;
 		i++;
 	}
+	printf("tmp = %llu\n", tmp);
+	if (tmp)
+		printf("%llu\n", tmp / (pow_max / pow));
 	return (chaine);
 }
 
