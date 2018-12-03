@@ -1,24 +1,28 @@
 #include "ft_printf.h"
 
-char	*doubles_decimales(double n)
+char	*doubles_decimales(double n, int precision)
 {
-	char	*chaine;
-	int		pow;
-	int		decimales;
-	int		tmp;
-	int		i;
+	char				*chaine;
+	unsigned long long	pow;
+	double				decimales;
+	int					i;
+	int					entiers;
+	unsigned long long	tmp;
 
-	if (!(chaine = ft_strnew(6)))
+	if (!(chaine = ft_strnew(precision)))
 		return (NULL);
-	pow = ft_pow(7);
-	decimales = (int)((ABS(n) - (double)ABS((int)n)) * pow);
-	tmp = decimales;
+	pow = ft_pow(precision + 1);
+	entiers = ABS((int)n);
+	decimales = ABS(n) - (double)entiers;
+	tmp = (unsigned long long)(decimales * pow);
+	printf("decimales = %f, tmp = %lld\n", decimales, tmp);
 	i = 0;
-	while (i < 6)
+	while (i < precision)
 	{
 		pow = pow / 10;
-		chaine[i] = (tmp) ? (decimales / pow) + 48 : '0';
-		decimales = decimales % pow;
+		printf("pow = %lld, decimales = %f\n", pow, decimales);
+		chaine[i] = (decimales) ? (tmp / pow) + 48 : '0';
+		tmp = tmp % pow;
 		i++;
 	}
 	return (chaine);
@@ -29,15 +33,17 @@ int		conversion_float(va_list ap, t_maillon **maillon)
 	char	*chaine;
 	char	modif;
 	double	arg;
+	int		precision;
 
 	chaine = NULL;
 	modif = ((*maillon)->modificateur) ? trans_modif((*maillon)->modificateur) : '0';
 	arg = va_arg(ap, double);
+	precision = ((*maillon)->precision) ? ft_atoi((*maillon)->precision) : 6;
 	if (!(chaine = ft_itoa((int)arg)))
 		return (0);
 	if (!(chaine = ft_strcat(chaine, ".")))
 		return (0);
-	if (!(chaine = ft_strcat(chaine, doubles_decimales(arg))))
+	if (!(chaine = ft_strcat(chaine, doubles_decimales(arg, precision))))
 		return (0);
 	printf("chaine = %s\n", chaine);
 	(*maillon)->chaine = chaine;

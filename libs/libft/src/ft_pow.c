@@ -6,15 +6,15 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/23 12:03:40 by pfaust            #+#    #+#             */
-/*   Updated: 2018/11/26 11:04:25 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/03 11:08:49 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long long		ft_pow(unsigned int len)
+unsigned long long			ft_pow(unsigned int len)
 {
-	long long pow;
+	unsigned long long		pow;
 
 	pow = 1;
 	if (len == 0)
