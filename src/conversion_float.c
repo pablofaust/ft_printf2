@@ -61,7 +61,7 @@ int		conversion_float(va_list ap, t_maillon **maillon)
 
 	chaine = NULL;
 	modif = ((*maillon)->modificateur) ? trans_modif((*maillon)->modificateur) : '0';
-	arg = va_arg(ap, double);
+	arg = (modif == 'L') ? va_arg(ap, long double) : va_arg(ap, double);
 	precision = ft_atoi((*maillon)->precision);
 	if (precision > 17 || !(*maillon)->precision)
 		precision = 6;

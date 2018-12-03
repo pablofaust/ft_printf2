@@ -10,7 +10,7 @@ int					est_attribut(char a)
 
 int					est_modificateur(char a)
 {
-	if (a == 'h' || a == 'l' || a == 'j' || a =='z')
+	if (a == 'h' || a == 'l' || a == 'j' || a =='z' || a == 'L')
 		return (1);
 	else
 		return (0);
