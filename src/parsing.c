@@ -56,6 +56,7 @@ static int		parse_conversion(const char *format, int *i, t_maillon **maillon)
 		{
 			if (!(conversion(format, &i, maillon)))
 				return (0);
+			return (1);
 		}
 		else
 		{
@@ -114,7 +115,6 @@ int					parsing(const char *format, t_maillon **maillons)
 	t_maillon		*maillon;
 	int				i;
 	int				lon;
-	int				test;
 
 	i = 0;
 	lon = ft_strlen(format);
@@ -126,7 +126,7 @@ int					parsing(const char *format, t_maillon **maillons)
 			parse_pourcent(format, &i, &maillon);
 		if (format[i] == '%' && format[i + 1] && format[i + 1] != '%')
 		{
-			if (!(test = parse_conversion(format, &i, &maillon)))
+			if (!(parse_conversion(format, &i, &maillon)))
 				return (0);
 		}
 		else
@@ -137,6 +137,5 @@ int					parsing(const char *format, t_maillon **maillons)
 		ajouter_maillon(maillons, maillon);
 		i++;
 	}
-	//lire_maillons(maillons);
 	return (1);
 }

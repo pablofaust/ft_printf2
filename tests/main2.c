@@ -7,10 +7,10 @@ int			main()
 
 	ld = -34059.94538;
 	printf("Real printf : \n");
-	real = printf("%- 35.12Lf", ld);
+	real = printf("%06.2x", 0x876);
 	printf("\n");
 	printf("Fake printf : \n");
-	fake = ft_printf("%- 35.12Lf", ld);
+	fake = ft_printf("%06.2x", 0x876);
 	printf("\n");
 	printf("real : %d fake : %d\n", real, fake);
 	if (real == fake) 
