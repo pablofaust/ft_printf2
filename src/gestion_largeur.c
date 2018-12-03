@@ -83,6 +83,8 @@ char		*gestion_largeur(t_maillon **maillon, int largeur, int initial)
 			return (NULL);
 		return (nouvelle);
 	}
+	if ((*maillon)->conversion == 'f')
+		(*maillon)->precision = NULL;
 	precision = ((*maillon)->precision != NULL) ? ft_atoi((*maillon)->precision) : 0;
 	if (!(nouvelle = ft_strnew(largeur)))
 		return ((*maillon)->chaine);

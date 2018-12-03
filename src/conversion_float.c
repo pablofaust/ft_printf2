@@ -76,5 +76,5 @@ int		conversion_float(va_list ap, t_maillon **maillon)
 	if (!(chaine = ft_strcat(chaine, doubles_decimales(arg, precision))))
 		return (0);
 	(*maillon)->chaine = chaine;
-	return (1);
+	return (ecrit_int(maillon));
 }
