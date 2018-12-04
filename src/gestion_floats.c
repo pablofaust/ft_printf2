@@ -35,7 +35,6 @@ char			*ft_double_reals(double n, int *exp)
 	int		i;
 	int		j;
 
-	printf("ABS n = %d\n", ABS((int)n));
 	if (!(reals = ft_itoa_base(ABS((int)n), 2)))
 		return (NULL);
 	i = 0;

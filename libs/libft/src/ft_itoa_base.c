@@ -6,12 +6,11 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/11 12:16:23 by pfaust            #+#    #+#             */
-/*   Updated: 2018/11/20 10:10:30 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/04 15:25:36 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "stdio.h"
 
 static int		itoapow(unsigned int n, int base)
 {

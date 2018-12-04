@@ -6,12 +6,11 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/11 12:16:23 by pfaust            #+#    #+#             */
-/*   Updated: 2018/10/24 21:08:00 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/04 15:25:48 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "stdio.h"
 
 static int		digits(unsigned int n, int base)
 {

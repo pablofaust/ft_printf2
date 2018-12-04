@@ -6,12 +6,11 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 13:57:48 by pfaust            #+#    #+#             */
-/*   Updated: 2018/11/28 14:47:55 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/04 15:25:21 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h> 
 
 char	*ft_dir_strncpy(char *src, int n, char c)
 {

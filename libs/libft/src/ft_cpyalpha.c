@@ -6,12 +6,11 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 14:29:33 by pfaust            #+#    #+#             */
-/*   Updated: 2018/11/26 11:40:14 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/04 15:24:52 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "stdio.h"
 
 int	ft_count_alpha(char *str)
 {
@@ -50,6 +49,5 @@ char	*ft_cpyalpha(char *str)
 			cpy[j++] = str[i];
 		i++;
 	}
-	printf("cpy = %s\n", cpy);
 	return (cpy);
 }

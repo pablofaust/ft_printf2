@@ -6,12 +6,11 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 10:09:36 by pfaust            #+#    #+#             */
-/*   Updated: 2018/11/26 11:41:11 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/04 15:25:07 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "stdio.h"
 
 static char		*ft_ajout_entiers(double n, int lon)
 {
@@ -55,7 +54,6 @@ static char		*ft_ajout_decimales(double n, int nb_d, long long pow)
 	decimales = ABS(n) - (double)entiers;
 	tmp1 = (int)(decimales * pow);
 	tmp2 = (int)(decimales * pow);
-	printf("entiers = %d, decimales = %f, tmp1 = %d, tmp2 = %d\n", entiers, decimales, tmp1, tmp2);
 	i = 0;
 	chaine[i++] = '.';
 	while (nb_d > 0)
