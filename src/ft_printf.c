@@ -88,6 +88,7 @@ void	lire_maillons(t_maillon **maillons)
 		printf("- = %d\n", (*pointeur)->att_moins);
 		printf("+ = %d\n", (*pointeur)->att_plus);
 		printf("  = %d\n", (*pointeur)->att_espace);
+		printf("nul = %d\n", (*pointeur)->est_nul);
 		printf("largeur = %s\n", (*pointeur)->largeur);
 		printf("precision = %s\n", (*pointeur)->precision);
 		printf("modificateur = %s\n", (*pointeur)->modificateur);

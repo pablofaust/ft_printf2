@@ -1,5 +1,27 @@
 #include "ft_printf.h"
 
+char		*largeur_zeros_x(t_maillon **maillon, char *nouvelle, int largeur)
+{
+	char	*chaine;
+	int		i;
+	int		j;
+	int		x;
+
+	(void)largeur;
+	chaine = (*maillon)->chaine;
+	if (chaine[0] == '+' || chaine[0] == '-' || chaine[0] == ' ')
+		nouvelle[0] = chaine[0];
+	i = (chaine[0] == '+' || chaine[0] == '-' || chaine[0] == ' ') ? 1 : 0;
+	j = (chaine[0] == '+' || chaine[0] == '-' || chaine[0] == ' ') ? 1 : 0;
+	x = (chaine[0] == '+' || chaine[0] == '-' || chaine[0] == ' ') ? 3 : 2;
+	nouvelle[i++] = '0';
+	nouvelle[i++] = 'x';
+	while (i < largeur - ft_strlen(chaine) + 2)
+		nouvelle[i++] = '0';
+	while (i < largeur - j)
+		nouvelle[i++] = chaine[x++];
+	return (nouvelle);
+}
 char		*largeur_zeros(t_maillon **maillon, char *nouvelle, int largeur)
 {
 	char	*chaine;
@@ -11,6 +33,8 @@ char		*largeur_zeros(t_maillon **maillon, char *nouvelle, int largeur)
 		nouvelle[0] = chaine[0];
 	i = (chaine[0] == '+' || chaine[0] == '-' || chaine[0] == ' ') ? 1 : 0;
 	j = (chaine[0] == '+' || chaine[0] == '-' || chaine[0] == ' ') ? 1 : 0;
+	if ((*maillon)->att_hash && (*maillon)->conversion == 'x')
+		return (largeur_zeros_x(maillon, nouvelle, largeur));
 	while (i < largeur - ft_strlen(chaine) + j)
 		nouvelle[i++] = '0';
 	while (chaine[j])

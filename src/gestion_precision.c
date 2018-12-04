@@ -77,9 +77,7 @@ char	*check_zero(t_maillon **maillon)
 		chaine[0] = '+';
 		return (chaine);
 	}
-	if (!(*maillon)->att_hash)
-		return (NULL);
-	return ((*maillon)->chaine);
+	return (NULL);
 }
 
 char		*modif_precision(t_maillon **maillon, int precision, int initial)
