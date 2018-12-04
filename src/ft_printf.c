@@ -67,6 +67,8 @@ int		lecture(t_maillon **maillons)
 			write(1, pointeur->chaine, len);
 			retour = retour + len;
 		}
+		else if (!pointeur->chaine && pointeur->conversion == 'c')
+			retour = (pointeur->largeur) ? retour + ft_atoi(pointeur->largeur) : retour + 1;
 		pointeur = pointeur->suivant;
 	}
 	return (retour);

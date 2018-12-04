@@ -27,7 +27,7 @@ char		*hexa (long long arg, t_maillon **maillon)
 	return (chaine);
 }
 
-int			est_nul(char *str)
+static int	est_nul(char *str)
 {
 	if (ft_strlen(str) == 1 && str[0] == '0')
 		return (1);
