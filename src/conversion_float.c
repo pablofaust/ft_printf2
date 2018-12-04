@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   conversion_float.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/12/04 15:45:55 by pfaust            #+#    #+#             */
+/*   Updated: 2018/12/04 15:46:18 by pfaust           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 char	*arrondi(char *str, unsigned long long tmp)
@@ -60,7 +72,8 @@ int		conversion_float(va_list ap, t_maillon **maillon)
 	int		precision;
 
 	chaine = NULL;
-	modif = ((*maillon)->modificateur) ? trans_modif((*maillon)->modificateur) : '0';
+	modif = ((*maillon)->modificateur) ?\
+			trans_modif((*maillon)->modificateur) : '0';
 	arg = (modif == 'L') ? va_arg(ap, long double) : va_arg(ap, double);
 	precision = ft_atoi((*maillon)->precision);
 	if (precision > 17 || !(*maillon)->precision)

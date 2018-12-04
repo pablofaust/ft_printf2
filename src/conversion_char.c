@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   conversion_char.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/12/04 15:41:43 by pfaust            #+#    #+#             */
+/*   Updated: 2018/12/04 15:43:34 by pfaust           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-char	*ecrit_null()
+char			*ecrit_null(void)
 {
-	char	*null;
+	char		*null;
 
 	if (!(null = ft_strnew(6)))
 		return (NULL);
@@ -16,38 +28,7 @@ char	*ecrit_null()
 	return (null);
 }
 
-static int	est_nul(char *str)
-{
-	if (!str)
-		return (1);
-	return (0);
-}
-
-int		ecrit_char(t_maillon **maillon)
-{
-	int		largeur;
-	int		initial;
-	int		precision;
-
-	if (est_nul((*maillon)->chaine))
-	{
-		(*maillon)->chaine = NULL;
-		return (1);
-	}
-	if ((*maillon)->chaine == NULL)
-		return (1);
-	largeur = ((*maillon)->largeur) ? ft_atoi((*maillon)->largeur) : 0;
-	initial = ft_strlen((*maillon)->chaine);
-	precision = ((*maillon)->precision) ? ft_atoi((*maillon)->precision) : 0;
-	if ((*maillon)->precision)
-		(*maillon)->chaine = modif_precision(maillon, precision, initial);
-	initial = ((*maillon)->chaine != NULL) ? ft_strlen((*maillon)->chaine) : 0;
-	if (largeur && largeur > initial)
-		(*maillon)->chaine = gestion_largeur(maillon, largeur, initial);
-	return (1);
-}
-
-char	*conversion_c(va_list ap)
+char			*conversion_c(va_list ap)
 {
 	char	c;
 	char	*chaine;
@@ -63,7 +44,7 @@ char	*conversion_c(va_list ap)
 	return (chaine);
 }
 
-char	*conversion_s(va_list ap)
+char			*conversion_s(va_list ap)
 {
 	char	*arg;
 	char	*chaine;
@@ -84,13 +65,14 @@ char	*conversion_s(va_list ap)
 	return (chaine);
 }
 
-int		conversion_char(va_list ap, t_maillon **maillon)
+int				conversion_char(va_list ap, t_maillon **maillon)
 {
 	char	*chaine;
 	char	modif;
 
 	chaine = NULL;
-	modif = ((*maillon)->modificateur ) ? trans_modif((*maillon)->modificateur) : '0';
+	modif = ((*maillon)->modificateur) ? \
+			trans_modif((*maillon)->modificateur) : '0';
 	if ((*maillon)->conversion == 's' && modif != 'l')
 		chaine = conversion_s(ap);
 	else if ((*maillon)->conversion == 'c' || (*maillon)->conversion == 'C')
@@ -98,4 +80,3 @@ int		conversion_char(va_list ap, t_maillon **maillon)
 	(*maillon)->chaine = chaine;
 	return (ecrit_char(maillon));
 }
-

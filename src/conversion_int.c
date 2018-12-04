@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   conversion_int.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/12/04 15:46:40 by pfaust            #+#    #+#             */
+/*   Updated: 2018/12/04 15:49:52 by pfaust           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-
-int			connaitre_base(char	c)
+int			connaitre_base(char c)
 {
 	if (c == 'x' || c == 'X' || c == 'p')
 		return (16);
@@ -12,7 +23,7 @@ int			connaitre_base(char	c)
 	return (10);
 }
 
-char		*hexa (long long arg, t_maillon **maillon)
+char		*hexa(long long arg, t_maillon **maillon)
 {
 	char	*chaine;
 	char	*itoa;
@@ -25,57 +36,6 @@ char		*hexa (long long arg, t_maillon **maillon)
 	if (!(chaine = ft_strjoin("0x", itoa)))
 		return (chaine);
 	return (chaine);
-}
-
-static int	est_nul(char *str)
-{
-	if (ft_strlen(str) == 1 && str[0] == '0')
-		return (1);
-	return (0);
-}
-
-int			ecrit_int(t_maillon **maillon)
-{
-	int		largeur;
-	int		initial;
-	int		precision;
-
-	if (est_nul((*maillon)->chaine))
-		(*maillon)->est_nul = 1;
-	largeur = ((*maillon)->largeur) ? ft_atoi((*maillon)->largeur) : 0;
-	initial = ft_strlen((*maillon)->chaine);
-	if ((*maillon)->chaine[0] == '-')
-		(*maillon)->neg = 1;
-	precision = ((*maillon)->precision) ? ft_atoi((*maillon)->precision) : 0;
-	if ((*maillon)->att_plus)
-		(*maillon)->chaine = modif_plus(maillon, '+');	
-	if (!(*maillon)->att_plus && (*maillon)->att_espace)
-		(*maillon)->chaine = modif_plus(maillon, ' ');	
-	if ((*maillon)->precision != NULL)
-		(*maillon)->chaine = modif_precision(maillon, precision, initial);
-	if ((*maillon)->att_hash)
-		(*maillon)->chaine = modif_hash(maillon, (*maillon)->conversion, initial);
-	if (largeur && largeur > initial)
-		(*maillon)->chaine = gestion_largeur(maillon, largeur, initial);
-	return (1);
-}
-
-char		trans_modif(char *modif)
-{
-	int		lon;
-
-	lon = ft_strlen(modif);
-	if (lon == 1)
-		return (modif[0]);
-	else if (lon == 2)
-	{
-		if (modif[0] == 'h')
-			return ('H');
-		else
-			return ('L');
-	}
-	else
-		return ('0');
 }
 
 int			exceptions(char c)
@@ -93,7 +53,8 @@ int			conversion_uint(va_list ap, t_maillon **maillon)
 
 	chaine = NULL;
 	base = connaitre_base((*maillon)->conversion);
-	modif = ((*maillon)->modificateur) ? trans_modif((*maillon)->modificateur) : '0';
+	modif = ((*maillon)->modificateur) ?\
+			trans_modif((*maillon)->modificateur) : '0';
 	if (modif == 'h' && !exceptions((*maillon)->conversion))
 		chaine = ft_itoa_base((unsigned short)va_arg(ap, unsigned int), base);
 	else if (modif == 'H' && !exceptions((*maillon)->conversion))
@@ -118,7 +79,8 @@ int			conversion_int(va_list ap, t_maillon **maillon)
 	char	modif;
 
 	chaine = NULL;
-	modif = ((*maillon)->modificateur ) ? trans_modif((*maillon)->modificateur) : '0';
+	modif = ((*maillon)->modificateur) ?\
+			trans_modif((*maillon)->modificateur) : '0';
 	if ((*maillon)->conversion == 'p')
 		chaine = hexa((long long)va_arg(ap, void*), maillon);
 	else if (modif == '0' && (*maillon)->conversion != 'D')

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   conversions.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/12/04 15:50:11 by pfaust            #+#    #+#             */
+/*   Updated: 2018/12/04 15:52:56 by pfaust           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int		remplir_chaine(char *arg, t_maillon **maillon)
@@ -15,7 +27,7 @@ int		remplir_chaine(char *arg, t_maillon **maillon)
 		portion = ft_atoi((*maillon)->precision);
 	if (!((*maillon)->chaine = ft_strnew(totale)))
 		return (0);
-	i = 0 ;
+	i = 0;
 	while ((*maillon)->largeur != NULL && i < totale - portion)
 		(*maillon)->chaine[i++] = ' ';
 	j = 0;
@@ -25,7 +37,6 @@ int		remplir_chaine(char *arg, t_maillon **maillon)
 		(*maillon)->chaine[i] = '\0';
 	return (1);
 }
-
 
 int		conversion_p_x(va_list ap, t_maillon **maillon)
 {
@@ -107,48 +118,5 @@ int		remplir_nb(t_maillon **maillon, char *itoa, int precision, int neg)
 		(*maillon)->chaine[i++] = '0';
 	while (itoa[j])
 		(*maillon)->chaine[i++] = itoa[j++];
-	return (1);
-}
-
-int		conversion_d_i(va_list ap, t_maillon **maillon)
-{
-	char	*itoa;
-	int		precision;
-
-	if (!(itoa = ft_itoa(va_arg(ap, int))))
-		return (0);
-	precision = ((*maillon)->precision != NULL) ? ft_atoi((*maillon)->precision) : 0;
-	if (itoa[0] == '-')
-		(*maillon)->neg = 1;
-	(*maillon)->lon = ft_strlen(itoa);
-	if ((*maillon)->att_moins)
-	{
-		if (!(remplir_nb_moins(maillon, itoa, precision, (*maillon)->neg)))
-			return (0);
-	}
-	else
-		if (!(remplir_nb(maillon, itoa, precision, (*maillon)->neg)))
-			return (0);
-	return (1);
-}
-
-int		conversion_o(va_list ap, t_maillon **maillon)
-{
-	(void)ap;
-	(void)maillon;
-	return (1);
-}
-
-int		conversion_u(va_list ap, t_maillon **maillon)
-{
-	(void)ap;
-	(void)maillon;
-	return (1);
-}
-
-int		conversion_c(va_list ap, t_maillon **maillon)
-{
-	(void)ap;
-	(void)maillon;
 	return (1);
 }
