@@ -43,6 +43,7 @@ t_maillon			*creer_maillon(void)
 	maillon->att_moins = 0;
 	maillon->att_plus = 0;
 	maillon->att_espace = 0;
+	maillon->est_nul = 0;
 	maillon->largeur = NULL;
 	maillon->precision = NULL;
 	maillon->modificateur = NULL;

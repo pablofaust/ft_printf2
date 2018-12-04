@@ -27,12 +27,21 @@ char		*hexa (long long arg, t_maillon **maillon)
 	return (chaine);
 }
 
+int			est_nul(char *str)
+{
+	if (ft_strlen(str) == 1 && str[0] == '0')
+		return (1);
+	return (0);
+}
+
 int			ecrit_int(t_maillon **maillon)
 {
 	int		largeur;
 	int		initial;
 	int		precision;
 
+	if (est_nul((*maillon)->chaine))
+		(*maillon)->est_nul = 1;
 	largeur = ((*maillon)->largeur) ? ft_atoi((*maillon)->largeur) : 0;
 	initial = ft_strlen((*maillon)->chaine);
 	if ((*maillon)->chaine[0] == '-')
@@ -45,7 +54,7 @@ int			ecrit_int(t_maillon **maillon)
 	if ((*maillon)->precision != NULL)
 		(*maillon)->chaine = modif_precision(maillon, precision, initial);
 	if ((*maillon)->att_hash)
-		((*maillon)->chaine = modif_hash(maillon, (*maillon)->conversion));
+		(*maillon)->chaine = modif_hash(maillon, (*maillon)->conversion, initial);
 	if (largeur && largeur > initial)
 		(*maillon)->chaine = gestion_largeur(maillon, largeur, initial);
 	return (1);

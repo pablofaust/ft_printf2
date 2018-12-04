@@ -18,18 +18,16 @@ char		*ajout_zeros(char *nouvelle, char *chaine, int lon, int precision)
 	return (nouvelle);
 }
 
-char		*precision_int(t_maillon **maillon)
+char		*precision_int(t_maillon **maillon, int precision)
 {
 	char	*chaine;
 	char	*nouvelle;
 	int		lon;
-	int		precision;
 	int		signe;
 
 	chaine = (*maillon)->chaine;
 	lon = ft_strlen(chaine);
 	signe = (chaine[0] == '-' || chaine[0] == '+' || chaine[0] == ' ') ? 1 : 0;
-	precision = ((*maillon)->precision) ? ft_atoi((*maillon)->precision) : 0;
 	if (precision == 0 && (*maillon)->precision[0] == '.' && (*maillon)->chaine == NULL)
 		return (NULL);
 	if (precision > lon - signe)
@@ -68,13 +66,31 @@ char		*precision_char(t_maillon **maillon, int precision, int initial)
 		return (chaine);
 }
 
+char	*check_zero(t_maillon **maillon)
+{
+	char	*chaine;
+
+	if ((*maillon)->att_plus)
+	{
+		if (!(chaine = ft_strnew(1)))
+			return (NULL);
+		chaine[0] = '+';
+		return (chaine);
+	}
+	if (!(*maillon)->att_hash)
+		return (NULL);
+	return ((*maillon)->chaine);
+}
+
 char		*modif_precision(t_maillon **maillon, int precision, int initial)
 {
 	char	c;
 
+	if ((*maillon)->est_nul && precision == 0)
+		return (check_zero(maillon));
 	c = (*maillon)->conversion;
 	if (c == 'd' || c == 'i' || c == 'u' || c == 'o' || c == 'x' || c == 'X')
-		return (precision_int(maillon));
+		return (precision_int(maillon, precision));
 	else if (c == 's')
 		return (precision_char(maillon, precision, initial));
 	return ((*maillon)->chaine);

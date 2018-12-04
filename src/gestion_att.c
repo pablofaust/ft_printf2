@@ -1,12 +1,20 @@
 #include "ft_printf.h"
 
-char		*ajout_zero_o(char *chaine)
+char		*ajout_zero_o(t_maillon **maillon, char *chaine, int initial)
 {
 	int		lon;
 	char	*nouvelle;
+	int		precision;
 
+	precision = ft_atoi((*maillon)->precision);
 	lon = ft_strlen(chaine);
 	if (lon == 1 && chaine[0] == '0')
+	{
+		if (ft_atoi((*maillon)->largeur) > 1)
+			(*maillon)->largeur = ft_itoa(ft_atoi((*maillon)->largeur) + 1);
+		return (chaine);
+	}
+	if (precision > initial)
 		return (chaine);
 	if (!(nouvelle = ft_strnew(lon + 1)))
 		return (chaine);
@@ -33,10 +41,10 @@ char		*ajout_0x_x(char c, char *chaine)
 	return (nouvelle);
 }
 
-char		*modif_hash(t_maillon **maillon, char c)
+char		*modif_hash(t_maillon **maillon, char c, int initial)
 {
 	if (c == 'o' || c == 'O')
-		return (ajout_zero_o((*maillon)->chaine));
+		return (ajout_zero_o(maillon, (*maillon)->chaine, initial));
 	else if (c == 'x' || c == 'X')
 		return (ajout_0x_x((*maillon)->conversion, (*maillon)->chaine));
 	return ((*maillon)->chaine);

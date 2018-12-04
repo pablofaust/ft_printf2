@@ -18,6 +18,7 @@ typedef struct			s_maillon
 	int					att_moins;
 	int					att_plus;
 	int					att_espace;
+	int					est_nul;
 	char				*largeur;
 	char				*precision;
 	char				*modificateur;
@@ -53,7 +54,7 @@ int				conversion_float(va_list ap, t_maillon **maillon);
 int				ecrit_int(t_maillon **maillon);
 char			trans_modif(char *modif);
 char			*modif_plus(t_maillon **maillon, char c);
-char			*modif_hash(t_maillon **maillon, char c);
+char			*modif_hash(t_maillon **maillon, char c, int initial);
 char			*modif_precision(t_maillon **maillon, int precision, int initial);
 char			*gestion_largeur(t_maillon **maillon, int largeur, int initial);
 char			*ft_doutoa(double n);
