@@ -6,7 +6,7 @@
 #    By: pfaust <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 15:46:59 by pfaust            #+#    #+#              #
-#    Updated: 2018/12/03 14:10:25 by pfaust           ###   ########.fr        #
+#    Updated: 2018/12/04 15:17:17 by pfaust           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ objs/%.o: src/%.c $(HEADER)
 objs:
 	@mkdir -p objs/
 clean :
-	@rm -rf $(OBJS)
+	@rm -rf objs/
 	@printf  "\033[1:32mCleaning object files -> \033[91m$(NAME)\033[0m\033[1:32m:\033[0m%-16s\033[32m[✔]\033[0m\n"
 fclean : clean
 	@rm -rf $(NAME)

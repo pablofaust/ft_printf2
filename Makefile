@@ -6,7 +6,7 @@
 #    By: pfaust <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/20 11:10:04 by pfaust            #+#    #+#              #
-#    Updated: 2018/12/03 14:10:39 by pfaust           ###   ########.fr        #
+#    Updated: 2018/12/04 15:19:00 by pfaust           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,13 +77,16 @@ objs:
 	@mkdir -p objs/
 
 clean:
+	@rm -rf objs/
+	@printf  "\033[1:32mCleaning object files -> \033[91m$(NAME)\033[0m\033[1:32m:\033[0m%-16s\033[32m[✔]\033[0m\n"
+	@rm -rf $(LIB_SRC)
+	@printf  "\033[1:32mCleaning object files -> \033[91m$(NAME)\033[0m\033[1:32m:\033[0m%-16s\033[32m[✔]\033[0m\n"
 	@make -C ./libs/libft clean
-	@rm -rf objs
 	@printf  "\033[1:32mCleaning object files -> \033[91m$(NAME)\033[0m\033[1:32m:\033[0m%-16s\033[32m[✔]\033[0m\n"
 
 fclean: clean
-	@rm -f $(NAME)
-	@make -C ./libs/libft fclean
+	@rm -rf $(NAME)
+	@rm -rf ./libs/libft/libft.a
 	@printf  "\033[1:32mCleaning binary -------> \033[91m$(NAME)\033[0m\033[1:32m:\033[0m%-16s\033[32m[✔]\033[0m\n"
 
 re:
