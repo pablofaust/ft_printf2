@@ -6,7 +6,7 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 09:57:58 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/05 10:39:46 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/05 12:09:11 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*complete_exp(char *str)
 	return (exp);
 }
 
-char	*fill_bits(double n, char *exp, char *reals, char* decimals)
+char	*fill_bits(double n, char *exp, char *reals, char *decimals)
 {
 	char	*bits;
 
@@ -54,13 +54,14 @@ char	*doutoa(double n)
 	char	*exp_char;
 	char	*decimals;
 	char	*bits;
-	
+
 	exp_int = 1;
 	if (!(reals = double_reals(n, &exp_int)))
 		return (NULL);
 	if (!(exp_char = complete_exp(ft_itoa_base(exp_int + 1023, 2))))
 		return (NULL);
-	if (!(decimals = double_decimals(ABS(n) - (double)ABS((int)n), 52 - exp_int)))
+	if (!(decimals = double_decimals(ABS(n) \
+					- (double)ABS((int)n), 52 - exp_int)))
 		return (NULL);
 	if (exp_int < 0)
 	{
@@ -71,4 +72,3 @@ char	*doutoa(double n)
 		return (NULL);
 	return (bits);
 }
-
