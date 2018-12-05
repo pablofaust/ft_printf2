@@ -6,13 +6,13 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 10:24:59 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/05 11:11:51 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/05 12:16:38 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int					nb_elems(t_elem **elems)
+int				nb_elems(t_elem **elems)
 {
 	t_elem			*ptr;
 	int				nb;
@@ -47,10 +47,10 @@ t_elem			*new_elem(void)
 	elem->modif = NULL;
 	elem->conv = '0';
 	elem->function = NULL;
-	elem->str= NULL;
+	elem->str = NULL;
 	elem->neg = 0;
 	elem->len = 0;
-	elem->next= NULL;
+	elem->next = NULL;
 	return (elem);
 }
 
