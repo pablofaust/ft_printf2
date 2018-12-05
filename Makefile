@@ -6,7 +6,7 @@
 #    By: pfaust <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/20 11:10:04 by pfaust            #+#    #+#              #
-#    Updated: 2018/12/05 10:35:41 by pfaust           ###   ########.fr        #
+#    Updated: 2018/12/05 12:20:21 by pfaust           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRC 		= ft_printf \
 			  handle_floats \
 			  list \
 			  parsing \
+			  percent \
 			  plain_parsing \
 			  precision \
 			  handling \

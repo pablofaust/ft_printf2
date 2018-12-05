@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/12/05 12:18:11 by pfaust            #+#    #+#             */
+/*   Updated: 2018/12/05 12:31:38 by pfaust           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int				is_flag(char a)
 {
-	if (a == '#' || a == '0' || a == '-' || a == '+' || a ==' ')
+	if (a == '#' || a == '0' || a == '-' || a == '+' || a == ' ')
 		return (1);
 	else
 		return (0);
@@ -10,7 +22,7 @@ int				is_flag(char a)
 
 int				is_modif(char a)
 {
-	if (a == 'h' || a == 'l' || a == 'j' || a =='z' || a == 'L')
+	if (a == 'h' || a == 'l' || a == 'j' || a == 'z' || a == 'L')
 		return (1);
 	else
 		return (0);
@@ -29,29 +41,16 @@ int				is_conv(char a)
 
 static int		conv_parsing(const char *format, int *i, t_elem *elem)
 {
-	(*i)++;
-	while (format[*i])
+	while (format[(*i)++])
 	{
-		if (is_flag(format[*i]))
-		{
-			if (!(flags(format, &i, elem)))
-				return (0);
-		}
-		if (ft_isdigit(format[*i]))
-		{
-			if (!(width(format, &i, elem)))
-				return (0);
-		}
-		if (format[*i] == '.')
-		{
-			if (!(precision(format, &i, elem, 0)))
-				return (0);
-		}
-		if (is_modif(format[*i]))
-		{
-			if (!(length(format, &i, elem)))
-				return (0);
-		}
+		if (is_flag(format[*i]) && !flags(format, &i, elem))
+			return (0);
+		if (ft_isdigit(format[*i]) && !width(format, &i, elem))
+			return (0);
+		if (format[*i] == '.' && !precision(format, &i, elem, 0))
+			return (0);
+		if (is_modif(format[*i]) & !length(format, &i, elem))
+			return (0);
 		if (is_conv(format[*i]))
 		{
 			if (!(conversion(format, &i, elem)))
@@ -68,57 +67,15 @@ static int		conv_parsing(const char *format, int *i, t_elem *elem)
 	return (1);
 }
 
-static int		get_percent(const char *format, int *i)
-{
-	int		j;
-	j = *i + 1;
-
-	if (format[j] == '-')
-		j++;
-	while (format[j] && ft_isdigit(format[j]))
-		j++;
-	if (format[j] == '%')
-		return (j - *i - 1);
-	return (0);
-}
-
-static int		percent_parsing(const char *format, int *i, t_elem *elem)
-{
-	int		j;
-	int		len;
-
-	if ((format[*i + 1] && format[*i + 1] == '%') ||
-	   		(format[*i + 1] && format[*i + 1] == ' ' && format[*i + 2] && format[*i + 2] == '%'))
-	{
-		elem->plain = 1;
-		if (!(elem->str = ft_strnew(1)))
-			return (0);
-		elem->str[0] = '%';
-		*i = (format[*i + 1] == '%') ? *i + 1 : *i + 2;
-		return (1);
-	}
-	j = 0;
-	if (format[*i + 1] && (len = get_percent(format, i)))
-	{
-		(*i)++;
-		elem->plain = 1;
-		if (!(elem->width = ft_strnew(len)))
-			return (0);
-		while (j < len)
-			elem->width[j++] = format[(*i)++];
-	}
-	return (1);
-}
-
-int					parsing(const char *format, t_elem **elems)
+int				parsing(const char *format, t_elem **elems)
 {
 	t_elem			*elem;
 	int				i;
 	int				len;
 
-	i = 0;
+	i = -1;
 	len = ft_strlen(format);
-	while (i < len)
+	while (++i < len)
 	{
 		if (!(elem = new_elem()))
 			return (0);
@@ -135,7 +92,6 @@ int					parsing(const char *format, t_elem **elems)
 				return (0);
 		}
 		add_elem(elems, elem);
-		i++;
 	}
 	return (1);
 }

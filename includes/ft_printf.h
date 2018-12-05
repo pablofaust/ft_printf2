@@ -35,6 +35,7 @@ int				list_count(t_elem *elems);
 int				ft_printf(const char *format, ...);
 int				parsing(const char *format, t_elem **elems);
 int				plain_parsing(const char *format, int *i, t_elem *elem);
+int				percent_parsing(const char *format, int *i, t_elem *elem);
 int				flags(const char *format, int **i, t_elem *elem);
 int				precision(const char *format, int **i, t_elem *elem, int nb);
 int				width(const char *format, int **i, t_elem *elem);
