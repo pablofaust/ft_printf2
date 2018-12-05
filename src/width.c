@@ -6,7 +6,7 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 10:18:53 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/05 11:23:44 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/05 12:50:30 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ char		*width_bef(t_elem *elem, char *new, int prec, int initial)
 	add = 0;
 	if ((c == 'o' || c == 'O') && elem->hash)
 		add = 1;
-	else if ((c == 'd' || c == 'i') && (elem->plus || elem->space) && elem->str[0] != '-')
+	else if ((c == 'd' || c == 'i') && (elem->plus || \
+				elem->space) && elem->str[0] != '-')
 		add = 1;
 	else if ((c == 'x' || c == 'X') && elem->hash)
 		add = 2;
@@ -78,7 +79,7 @@ char		*width_bef(t_elem *elem, char *new, int prec, int initial)
 		new[i++] = ' ';
 	j = 0;
 	while (elem->str[j])
-		new[i++] = elem->str[j++]; 
+		new[i++] = elem->str[j++];
 	return (new);
 }
 
@@ -89,25 +90,12 @@ char		*width_aft(t_elem *elem, char *new, int width)
 
 	str = elem->str;
 	i = -1;
-	while (str[++i]) 
+	while (str[++i])
 		new[i] = str[i];
 	while (i < width)
 		new[i++] = ' ';
 	new[i] = '\0';
 	return (new);
-}
-
-char		*width_null(int width)
-{
-	char	*str;
-	int		i;
-
-	if (!(str = ft_strnew(width)))
-		return (NULL);
-	i = 0;
-	while (i < width)
-		str[i++] = ' ';
-	return (str);
 }
 
 char		*handle_width(t_elem *elem, int width, int initial)

@@ -39,6 +39,7 @@ int				percent_parsing(const char *format, int *i, t_elem *elem);
 int				flags(const char *format, int **i, t_elem *elem);
 int				precision(const char *format, int **i, t_elem *elem, int nb);
 int				width(const char *format, int **i, t_elem *elem);
+char			*width_null(int width);
 int				length(const char *format, int **i, t_elem *elem);
 int				conversion(const char *format, int **i, t_elem *elem);
 int				is_flag(char a);
