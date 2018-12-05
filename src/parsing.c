@@ -44,7 +44,7 @@ static int		conv_parsing(const char *format, int *i, t_elem *elem)
 		}
 		if (format[*i] == '.')
 		{
-			if (!(precision(format, &i, elem)))
+			if (!(precision(format, &i, elem, 0)))
 				return (0);
 		}
 		if (is_modif(format[*i]))

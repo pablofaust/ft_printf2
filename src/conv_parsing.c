@@ -6,13 +6,13 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 10:29:36 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/05 10:53:15 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/05 12:05:19 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int					flags(char const *format, int **i, t_elem *elem)
+int			flags(char const *format, int **i, t_elem *elem)
 {
 	if (format[**i - 1] != '%')
 		return (1);
@@ -33,7 +33,7 @@ int					flags(char const *format, int **i, t_elem *elem)
 	return (1);
 }
 
-int					width(const char *format, int **i, t_elem *elem)
+int			width(const char *format, int **i, t_elem *elem)
 {
 	int		j;
 	int		nb;
@@ -41,7 +41,7 @@ int					width(const char *format, int **i, t_elem *elem)
 
 	j = **i;
 	nb = 0;
-	if (elem->width != NULL ||elem->prec != NULL \
+	if (elem->width != NULL || elem->prec != NULL \
 			|| elem->modif != NULL || elem->conv != '0')
 		return (0);
 	while (ft_isdigit(format[j]))
@@ -62,16 +62,14 @@ int					width(const char *format, int **i, t_elem *elem)
 	return (1);
 }
 
-int				precision(const char *format, int **i, t_elem *elem)
+int			precision(const char *format, int **i, t_elem *elem, int nb)
 {
-	int		nb;
 	int		j;
 	int		k;
 
 	if (elem->prec != NULL || elem->modif != NULL || elem->conv != '0')
 		return (0);
 	(**i)++;
-	nb = 0;
 	j = **i;
 	while (ft_isdigit(format[j]))
 	{
@@ -87,16 +85,12 @@ int				precision(const char *format, int **i, t_elem *elem)
 		k++;
 	}
 	while (ft_isdigit(format[**i]))
-	{
-		elem->prec[k] = format[**i];
-		(**i)++;
-		k++;
-	}
+		elem->prec[k++] = format[(**i)++];
 	elem->prec[k] = '\0';
 	return (1);
 }
 
-int				length(const char *format, int **i, t_elem *elem)
+int			length(const char *format, int **i, t_elem *elem)
 {
 	int		j;
 	int		nb;
@@ -106,11 +100,8 @@ int				length(const char *format, int **i, t_elem *elem)
 		return (0);
 	j = **i;
 	nb = 0;
-	while (is_modif(format[j]))
-	{
+	while (is_modif(format[j++]))
 		nb++;
-		j++;
-	}
 	if (nb > 2)
 		return (0);
 	if (!(elem->modif = malloc(sizeof(char) * nb + 1)))
@@ -126,7 +117,7 @@ int				length(const char *format, int **i, t_elem *elem)
 	return (1);
 }
 
-int				conversion(const char *format, int **i, t_elem *elem)
+int			conversion(const char *format, int **i, t_elem *elem)
 {
 	char	c;
 
@@ -138,7 +129,8 @@ int				conversion(const char *format, int **i, t_elem *elem)
 		elem->function = conv_char;
 	else if (c == 'd' || c == 'D' || c == 'i' || c == 'p')
 		elem->function = conv_int;
-	else if (c == 'o' || c == 'O' || c == 'x' || c == 'X' || c == 'u' || c == 'U')
+	else if (c == 'o' || c == 'O' || c == 'x' || \
+			c == 'X' || c == 'u' || c == 'U')
 		elem->function = conv_uint;
 	else if (c == 'S')
 		elem->function = conv_char;
