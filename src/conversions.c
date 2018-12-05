@@ -6,7 +6,7 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 15:50:11 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/05 11:09:57 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/05 12:07:54 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,15 @@ int		fill_nb_minus(t_elem *elem, char *itoa, int prec, int neg)
 	width = 0;
 	zeros = ft_never_negative(prec - elem->len + neg);
 	if (elem->width != NULL)
-	{
 		if (!(width = ft_atoi(elem->width) - (elem->len + zeros)))
 			return (0);
-	}
 	len = (prec != 0) ? prec + neg + width : elem->len + width;
 	if (!(elem->str = ft_strnew(len)))
 		return (0);
-	i= 0;
+	i = 0;
 	j = 0;
-	if (neg)
-	{
+	if (neg && j++)
 		elem->str[i++] = '-';
-		j++;
-	}
 	while (zeros && i <= zeros)
 		elem->str[i++] = '0';
 	while (itoa[j])
@@ -83,22 +78,17 @@ int		fill_nb(t_elem *elem, char *itoa, int prec, int neg)
 	width = 0;
 	zeros = ft_never_negative(prec - elem->len + neg);
 	if (elem->width != NULL)
-	{
 		if (!(width = ft_atoi(elem->width) - (elem)->len + zeros))
 			return (0);
-	}
 	len = (prec != 0) ? prec + neg + width : elem->len + width;
 	if (!(elem->str = ft_strnew(len)))
 		return (0);
-	i= 0;
+	i = 0;
 	while (width && i < width)
 		elem->str[i++] = ' ';
 	j = 0;
-	if (neg)
-	{
+	if (neg && j++)
 		elem->str[i++] = '-';
-		j++;
-	}
 	while (zeros && i <= width + zeros)
 		elem->str[i++] = '0';
 	while (itoa[j])
