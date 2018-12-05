@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/12/05 12:10:04 by pfaust            #+#    #+#             */
+/*   Updated: 2018/12/05 12:11:06 by pfaust           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-char	*uppercase(char *str)
+char			*uppercase(char *str)
 {
 	char	*new;
 	char	c;
@@ -25,7 +37,7 @@ static int		percent_width(t_elem *elem)
 
 	free(elem->str);
 	len = ft_atoi(elem->width);
-	if (!(elem->str= ft_strnew(ABS(len))))
+	if (!(elem->str = ft_strnew(ABS(len))))
 		return (0);
 	i = 0;
 	if (len < 0)
@@ -43,7 +55,7 @@ static int		percent_width(t_elem *elem)
 	return (1);
 }
 
-int		read_all(t_elem *elems)
+int				read_all(t_elem *elems)
 {
 	t_elem	*ptr;
 	int		len;
@@ -56,11 +68,9 @@ int		read_all(t_elem *elems)
 	{
 		if (ptr->str != NULL)
 		{
-			if (ptr->plain== 1 && ptr->width!= NULL)
-			{
+			if (ptr->plain == 1 && ptr->width != NULL)
 				if (!(percent_width(ptr)))
 					return (0);
-			}
 			len = ft_strlen(ptr->str);
 			if (ptr->conv == 'X')
 				ptr->str = uppercase(ptr->str);
@@ -74,10 +84,10 @@ int		read_all(t_elem *elems)
 	return (count);
 }
 
-int		ft_printf(const char *format, ...)
+int				ft_printf(const char *format, ...)
 {
 	t_elem		*elems;
-	va_list			ap;
+	va_list		ap;
 	int			count;
 
 	elems = NULL;

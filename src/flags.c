@@ -6,7 +6,7 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 10:08:27 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/05 10:58:34 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/05 12:09:49 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char		*add_zero_o(t_elem *elem, char *str, int initial)
 	int		len;
 	char	*new;
 	int		prec;
-	
+
 	prec = ft_atoi(elem->prec);
 	len = (str) ? ft_strlen(str) : 0;
 	if (elem->isnull)
