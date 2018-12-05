@@ -6,7 +6,7 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 12:19:21 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/05 12:20:51 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/05 12:33:53 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static int		get_percent(const char *format, int *i)
 {
 	int		j;
-	j = *i + 1;
 
+	j = *i + 1;
 	if (format[j] == '-')
 		j++;
 	while (format[j] && ft_isdigit(format[j]))
@@ -31,8 +31,9 @@ int				percent_parsing(const char *format, int *i, t_elem *elem)
 	int		j;
 	int		len;
 
-	if ((format[*i + 1] && format[*i + 1] == '%') ||
-	   		(format[*i + 1] && format[*i + 1] == ' ' && format[*i + 2] && format[*i + 2] == '%'))
+	if ((format[*i + 1] && format[*i + 1] == '%') || \
+			(format[*i + 1] && format[*i + 1] == ' ' \
+			&& format[*i + 2] && format[*i + 2] == '%'))
 	{
 		elem->plain = 1;
 		if (!(elem->str = ft_strnew(1)))
