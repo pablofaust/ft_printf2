@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-int					est_attribut(char a)
+int				is_flag(char a)
 {
 	if (a == '#' || a == '0' || a == '-' || a == '+' || a ==' ')
 		return (1);
@@ -8,7 +8,7 @@ int					est_attribut(char a)
 		return (0);
 }
 
-int					est_modificateur(char a)
+int				is_modif(char a)
 {
 	if (a == 'h' || a == 'l' || a == 'j' || a =='z' || a == 'L')
 		return (1);
@@ -16,7 +16,7 @@ int					est_modificateur(char a)
 		return (0);
 }
 
-int					est_conversion(char a)
+int				is_conv(char a)
 {
 	if (a == 's' || a == 'S' || a == 'p' || a == 'd' || a == 'D' \
 			|| a == 'i' || a == 'o' || a == 'O' || a == 'u' \
@@ -27,34 +27,34 @@ int					est_conversion(char a)
 		return (0);
 }
 
-static int		parse_conversion(const char *format, int *i, t_maillon **maillon)
+static int		conv_parsing(const char *format, int *i, t_elem **elem)
 {
 	(*i)++;
 	while (format[*i])
 	{
-		if (est_attribut(format[*i]))
+		if (is_flag(format[*i]))
 		{
-			if (!(attributs(format, &i, maillon)))
+			if (!(flags(format, &i, elem)))
 				return (0);
 		}
 		if (ft_isdigit(format[*i]))
 		{
-			if (!(largeur(format, &i, maillon)))
+			if (!(width(format, &i, elem)))
 				return (0);
 		}
 		if (format[*i] == '.')
 		{
-			if (!(precision(format, &i, maillon)))
+			if (!(precision(format, &i, elem)))
 				return (0);
 		}
-		if (est_modificateur(format[*i]))
+		if (is_modif(format[*i]))
 		{
-			if (!(modificateur(format, &i, maillon)))
+			if (!(length(format, &i, elem)))
 				return (0);
 		}
-		if (est_conversion(format[*i]))
+		if (is_conv(format[*i]))
 		{
-			if (!(conversion(format, &i, maillon)))
+			if (!(conversion(format, &i, elem)))
 				return (0);
 			return (1);
 		}
@@ -68,7 +68,7 @@ static int		parse_conversion(const char *format, int *i, t_maillon **maillon)
 	return (1);
 }
 
-static int		ch_pourcent(const char *format, int *i)
+static int		get_percent(const char *format, int *i)
 {
 	int		j;
 	j = *i + 1;
@@ -82,59 +82,59 @@ static int		ch_pourcent(const char *format, int *i)
 	return (0);
 }
 
-static int		parse_pourcent(const char *format, int *i, t_maillon **maillon)
+static int		percent_parsing(const char *format, int *i, t_elem **elem)
 {
 	int		j;
-	int		lon;
+	int		len;
 
 	if ((format[*i + 1] && format[*i + 1] == '%') ||
 	   		(format[*i + 1] && format[*i + 1] == ' ' && format[*i + 2] && format[*i + 2] == '%'))
 	{
-		(*maillon)->ordinaires = 1;
-		if (!((*maillon)->chaine = ft_strnew(1)))
+		(*elem)->plain = 1;
+		if (!((*elem)->str = ft_strnew(1)))
 			return (0);
-		(*maillon)->chaine[0] = '%';
+		(*elem)->str[0] = '%';
 		*i = (format[*i + 1] == '%') ? *i + 1 : *i + 2;
 		return (1);
 	}
 	j = 0;
-	if (format[*i + 1] && (lon = ch_pourcent(format, i)))
+	if (format[*i + 1] && (len = get_percent(format, i)))
 	{
 		(*i)++;
-		(*maillon)->ordinaires = 1;
-		if (!((*maillon)->largeur = ft_strnew(lon)))
+		(*elem)->plain = 1;
+		if (!((*elem)->width = ft_strnew(len)))
 			return (0);
-		while (j < lon)
-			(*maillon)->largeur[j++] = format[(*i)++];
+		while (j < len)
+			(*elem)->width[j++] = format[(*i)++];
 	}
 	return (1);
 }
 
-int					parsing(const char *format, t_maillon **maillons)
+int					parsing(const char *format, t_elem **elems)
 {
-	t_maillon		*maillon;
+	t_elem			*elem;
 	int				i;
-	int				lon;
+	int				len;
 
 	i = 0;
-	lon = ft_strlen(format);
-	while (i < lon)
+	len = ft_strlen(format);
+	while (i < len)
 	{
-		if (!(maillon = creer_maillon()))
+		if (!(elem = new_elem()))
 			return (0);
 		if (format[i] == '%')
-			parse_pourcent(format, &i, &maillon);
+			percent_parsing(format, &i, &elem);
 		if (format[i] == '%' && format[i + 1] && format[i + 1] != '%')
 		{
-			if (!(parse_conversion(format, &i, &maillon)))
+			if (!(conv_parsing(format, &i, &elem)))
 				return (0);
 		}
 		else
 		{
-			if (!(parse_ordinaires(format, &i, &maillon)))
+			if (!(plain_parsing(format, &i, &elem)))
 				return (0);
 		}
-		ajouter_maillon(maillons, maillon);
+		add_elem(elems, elem);
 		i++;
 	}
 	return (1);

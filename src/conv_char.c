@@ -6,13 +6,13 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 15:41:43 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/04 15:43:34 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/05 10:37:46 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char			*ecrit_null(void)
+char			*write_null(void)
 {
 	char		*null;
 
@@ -28,55 +28,55 @@ char			*ecrit_null(void)
 	return (null);
 }
 
-char			*conversion_c(va_list ap)
+char			*conv_c(va_list ap)
 {
 	char	c;
-	char	*chaine;
+	char	*str;
 
 	c = va_arg(ap, int);
-	chaine = NULL;
+	str = NULL;
 	if (c)
 	{
-		if (!(chaine = ft_strnew(1)))
+		if (!(str = ft_strnew(1)))
 			return (NULL);
-		chaine[0] = c;
+		str[0] = c;
 	}
-	return (chaine);
+	return (str);
 }
 
-char			*conversion_s(va_list ap)
+char			*conv_s(va_list ap)
 {
 	char	*arg;
-	char	*chaine;
+	char	*str;
 
 	arg = va_arg(ap, char*);
-	chaine = NULL;
+	str = NULL;
 	if (arg)
 	{
-		if (!(chaine = ft_strnew(ft_strlen(arg))))
+		if (!(str = ft_strnew(ft_strlen(arg))))
 			return (NULL);
-		chaine = arg;
+		str = arg;
 	}
 	else
 	{
-		if (!(chaine = ecrit_null()))
+		if (!(str = write_null()))
 			return (NULL);
 	}
-	return (chaine);
+	return (str);
 }
 
-int				conversion_char(va_list ap, t_maillon **maillon)
+int				conv_char(va_list ap, t_elem **elem)
 {
-	char	*chaine;
+	char	*str;
 	char	modif;
 
-	chaine = NULL;
-	modif = ((*maillon)->modificateur) ? \
-			trans_modif((*maillon)->modificateur) : '0';
-	if ((*maillon)->conversion == 's' && modif != 'l')
-		chaine = conversion_s(ap);
-	else if ((*maillon)->conversion == 'c' || (*maillon)->conversion == 'C')
-		chaine = conversion_c(ap);
-	(*maillon)->chaine = chaine;
-	return (ecrit_char(maillon));
+	str = NULL;
+	modif = ((*elem)->modif) ? \
+			trans_modif((*elem)->modif) : '0';
+	if ((*elem)->conv == 's' && modif != 'l')
+		str = conv_s(ap);
+	else if ((*elem)->conv == 'c' || (*elem)->conv == 'C')
+		str = conv_c(ap);
+	(*elem)->str = str;
+	return (write_char(elem));
 }

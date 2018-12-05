@@ -1,91 +1,91 @@
 #include "ft_printf.h"
 
-char	*en_majuscules(char *chaine)
+char	*uppercase(char *str)
 {
-	char	*nouvelle;
+	char	*new;
 	char	c;
 	int		i;
 
-	nouvelle = ft_strnew(ft_strlen(chaine));
+	new = ft_strnew(ft_strlen(str));
 	i = 0;
-	while (chaine[i])
+	while (str[i])
 	{
-		c = chaine[i];
-		nouvelle[i] = (c >= 97 && c <= 122) ? c - 32 : c;
+		c = str[i];
+		new[i] = (c >= 97 && c <= 122) ? c - 32 : c;
 		i++;
 	}
-	free(chaine);
-	return (nouvelle);
+	free(str);
+	return (new);
 }
 
-static int		largeur_pourcent(t_maillon *maillon)
+static int		percent_width(t_elem *elem)
 {
-	int		lon;
+	int		len;
 	int		i;
 
-	free(maillon->chaine);
-	lon = ft_atoi(maillon->largeur);
-	if (!(maillon->chaine = ft_strnew(ABS(lon))))
+	free(elem->str);
+	len = ft_atoi(elem->width);
+	if (!(elem->str= ft_strnew(ABS(len))))
 		return (0);
 	i = 0;
-	if (lon < 0)
+	if (len < 0)
 	{
-		maillon->chaine[i++] = '%';
-		while (i < ABS(lon))
-			maillon->chaine[i++] = (maillon->largeur[0] == '0') ? '0' : ' ';
+		elem->str[i++] = '%';
+		while (i < ABS(len))
+			elem->str[i++] = (elem->width[0] == '0') ? '0' : ' ';
 	}
 	else
 	{
-		while (i < ABS(lon) - 1)
-			maillon->chaine[i++] = (maillon->largeur[0] == '0') ? '0' : ' ';
-		maillon->chaine[i] = '%';
+		while (i < ABS(len) - 1)
+			elem->str[i++] = (elem->width[0] == '0') ? '0' : ' ';
+		elem->str[i] = '%';
 	}
 	return (1);
 }
 
-int		lecture(t_maillon **maillons)
+int		read_all(t_elem **elems)
 {
-	t_maillon	*pointeur;
+	t_elem	*ptr;
 	int		len;
-	int		retour;
+	int		count;
 
 	len = 0;
-	retour = 0;
-	pointeur = *maillons;
-	while (pointeur)
+	count = 0;
+	ptr = *elems;
+	while (ptr)
 	{
-		if (pointeur->chaine != NULL)
+		if (ptr->str != NULL)
 		{
-			if (pointeur->ordinaires == 1 && pointeur->largeur != NULL)
+			if (ptr->plain== 1 && ptr->width!= NULL)
 			{
-				if (!(largeur_pourcent(pointeur)))
+				if (!(percent_width(ptr)))
 					return (0);
 			}
-			len = ft_strlen(pointeur->chaine);
-			if (pointeur->conversion == 'X')
-				pointeur->chaine = en_majuscules(pointeur->chaine);
-			write(1, pointeur->chaine, len);
-			retour = retour + len;
+			len = ft_strlen(ptr->str);
+			if (ptr->conv == 'X')
+				ptr->str = uppercase(ptr->str);
+			write(1, ptr->str, len);
+			count = count + len;
 		}
-		else if (!pointeur->chaine && pointeur->conversion == 'c')
-			retour = (pointeur->largeur) ? retour + ft_atoi(pointeur->largeur) : retour + 1;
-		pointeur = pointeur->suivant;
+		else if (!ptr->str && ptr->conv == 'c')
+			count = (ptr->width) ? count + ft_atoi(ptr->width) : count + 1;
+		ptr = ptr->next;
 	}
-	return (retour);
+	return (count);
 }
 
 int		ft_printf(const char *format, ...)
 {
-	t_maillon		*maillons;
+	t_elem		*elems;
 	va_list			ap;
-	int			retour;
+	int			count;
 
-	maillons = NULL;
-	if (!(parsing(format, &maillons)))
+	elems = NULL;
+	if (!(parsing(format, &elems)))
 		return (-1);
 	va_start(ap, format);
-	if (!(traitement(ap, &maillons)))
+	if (!(handling(ap, &elems)))
 		return (-1);
-	retour = lecture(&maillons);
-	return (retour);
+	count = read_all(&elems);
+	return (count);
 }

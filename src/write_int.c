@@ -6,7 +6,7 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 15:47:00 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/04 15:47:55 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/05 10:43:34 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 char		trans_modif(char *modif)
 {
-	int		lon;
+	int		len;
 
-	lon = ft_strlen(modif);
-	if (lon == 1)
+	len = ft_strlen(modif);
+	if (len == 1)
 		return (modif[0]);
-	else if (lon == 2)
+	else if (len == 2)
 	{
 		if (modif[0] == 'h')
 			return ('H');
@@ -30,37 +30,35 @@ char		trans_modif(char *modif)
 		return ('0');
 }
 
-static int	est_nul(char *str)
+static int	is_null(char *str)
 {
 	if (ft_strlen(str) == 1 && str[0] == '0')
 		return (1);
 	return (0);
 }
 
-int			ecrit_int(t_maillon **maillon)
+int			write_int(t_elem **elem)
 {
-	int		largeur;
+	int		width;
 	int		initial;
-	int		precision;
+	int		prec;
 
-	if (est_nul((*maillon)->chaine))
-		(*maillon)->est_nul = 1;
-	largeur = ((*maillon)->largeur) ? ft_atoi((*maillon)->largeur) : 0;
-	initial = ft_strlen((*maillon)->chaine);
-	if ((*maillon)->chaine[0] == '-')
-		(*maillon)->neg = 1;
-	precision = ((*maillon)->precision) ? ft_atoi((*maillon)->precision) : 0;
-	if ((*maillon)->att_plus)
-		(*maillon)->chaine = modif_plus(maillon, '+');	
-	if (!(*maillon)->att_plus && (*maillon)->att_espace)
-		(*maillon)->chaine = modif_plus(maillon, ' ');	
-	if ((*maillon)->precision != NULL)
-		(*maillon)->chaine = modif_precision(maillon, precision, initial);
-	if ((*maillon)->att_hash)
-		(*maillon)->chaine = modif_hash(maillon, (*maillon)->conversion, initial);
-	if (largeur && largeur > initial)
-		(*maillon)->chaine = gestion_largeur(maillon, largeur, initial);
+	if (is_null((*elem)->str))
+		(*elem)->isnull = 1;
+	width = ((*elem)->width) ? ft_atoi((*elem)->width) : 0;
+	initial = ft_strlen((*elem)->str);
+	if ((*elem)->str[0] == '-')
+		(*elem)->neg = 1;
+	prec = ((*elem)->prec) ? ft_atoi((*elem)->prec) : 0;
+	if ((*elem)->plus)
+		(*elem)->str = modif_plus(elem, '+');	
+	if (!(*elem)->plus && (*elem)->space)
+		(*elem)->str = modif_plus(elem, ' ');	
+	if ((*elem)->prec != NULL)
+		(*elem)->str = modif_prec(elem, prec, initial);
+	if ((*elem)->hash)
+		(*elem)->str = modif_hash(elem, (*elem)->conv, initial);
+	if (width && width > initial)
+		(*elem)->str = handle_width(elem, width, initial);
 	return (1);
 }
-
-

@@ -6,7 +6,7 @@
 #    By: pfaust <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/20 11:10:04 by pfaust            #+#    #+#              #
-#    Updated: 2018/12/04 15:48:38 by pfaust           ###   ########.fr        #
+#    Updated: 2018/12/05 10:35:41 by pfaust           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,22 +20,22 @@ INCLUDES 	= -I includes/ \
 		  -I ./libs/libft/includes/
 HEADER		= ./includes/ft_printf.h
 SRC 		= ft_printf \
-			  maillons \
-			  parse_conversion \
-			  parse_ordinaires \
-			  parsing \
-			  traitement \
+			  conv_char \
+			  conv_float \
+			  conv_int \
+			  conv_parsing \
 			  conversions \
-			  conversion_char \
-			  conversion_int \
-			  conversion_float \
-			  gestion_att \
-			  gestion_precision \
-			  gestion_largeur \
-			  gestion_floats \
-			  doubles_binaires \
-			  ecrire_char \
-			  ecrire_int
+			  double_binary \
+			  flags \
+			  handle_floats \
+			  list \
+			  parsing \
+			  plain_parsing \
+			  precision \
+			  handling \
+			  width \
+			  write_char \
+			  write_int \
 
 LIB_SRC = ft_atoi ft_bzero ft_isalnum ft_isalpha ft_isascii \
 	ft_isdigit ft_isprint ft_itoa ft_lstadd ft_lstdel \

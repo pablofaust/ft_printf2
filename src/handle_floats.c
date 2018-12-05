@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-char	*ft_double_decimals(double n, int len)
+char	*double_decimals(double n, int len)
 {
 	char	*decimals;
 	int		i;
@@ -17,19 +17,19 @@ char	*ft_double_decimals(double n, int len)
 	return (decimals);
 }
 
-static void		ft_neg_exp(double n, int *exp)
+static void		neg_exp(double n, int *exp)
 {
 	char	*decimals;
 	int		i;
 
-	decimals = ft_double_decimals(n, 28);
+	decimals = double_decimals(n, 28);
 	i = 0;
 	while (decimals[i] && decimals[i] != '1')
 		i++;
 	*exp = -i - 1;
 }
 
-char			*ft_double_reals(double n, int *exp)
+char			*double_reals(double n, int *exp)
 {
 	char	*reals;
 	int		i;
@@ -52,7 +52,7 @@ char			*ft_double_reals(double n, int *exp)
 	}
 	else
 	{
-		ft_neg_exp(n, exp);
+		neg_exp(n, exp);
 		return (ft_dir_strncpy(reals, ABS(*exp), '>'));
 	}
 }

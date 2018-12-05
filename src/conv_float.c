@@ -6,17 +6,17 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 15:45:55 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/04 15:46:18 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/05 10:38:01 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*arrondi(char *str, unsigned long long tmp)
+char	*round_decimals(char *str, unsigned long long tmp)
 {
 	int		len;
 	int		i;
-	int		neuf;
+	int		nine;
 
 	if (tmp < 5)
 		return (str);
@@ -24,15 +24,15 @@ char	*arrondi(char *str, unsigned long long tmp)
 	i = len - 1;
 	if (str[i] && tmp >= 5)
 	{
-		neuf = 1;
-		while (str[i] && neuf == 1)
+		nine = 1;
+		while (str[i] && nine == 1)
 		{
 			if (str[i] == '9')
 				str[i] = '0';
 			else
 			{
 				str[i]++;
-				neuf--;
+				nine--;
 			}
 			i--;
 		}
@@ -40,54 +40,54 @@ char	*arrondi(char *str, unsigned long long tmp)
 	return (str);
 }
 
-char	*doubles_decimales(double n, int precision)
+char	*double_decimals(double n, int prec)
 {
-	char				*chaine;
+	char				*str;
 	unsigned long long	pow;
-	long double			decimales;
+	long double			decimals;
 	int					i;
 	unsigned long long	tmp;
 
-	if (!(chaine = ft_strnew(precision)))
+	if (!(str = ft_strnew(prec)))
 		return (NULL);
 	pow = 1000000000000000000;
-	decimales = ABS(n) - (double)ABS((int)n);
-	tmp = (unsigned long long)(decimales * pow);
+	decimals = ABS(n) - (double)ABS((int)n);
+	tmp = (unsigned long long)(decimals * pow);
 	i = 0;
-	while (i < precision)
+	while (i < prec)
 	{
 		pow = pow / 10;
-		chaine[i] = (decimales) ? (tmp / pow) + 48 : '0';
+		str[i] = (decimals) ? (tmp / pow) + 48 : '0';
 		tmp = tmp % pow;
 		i++;
 	}
-	return (arrondi(chaine, tmp / ft_int_pow(tmp)));
+	return (round_decimals(str, tmp / ft_int_pow(tmp)));
 }
 
-int		conversion_float(va_list ap, t_maillon **maillon)
+int		conv_float(va_list ap, t_elem **elem)
 {
-	char	*chaine;
+	char	*str;
 	char	modif;
 	double	arg;
-	int		precision;
+	int		prec;
 
-	chaine = NULL;
-	modif = ((*maillon)->modificateur) ?\
-			trans_modif((*maillon)->modificateur) : '0';
+	str = NULL;
+	modif = ((*elem)->modif) ?\
+			trans_modif((*elem)->modif) : '0';
 	arg = (modif == 'L') ? va_arg(ap, long double) : va_arg(ap, double);
-	precision = ft_atoi((*maillon)->precision);
-	if (precision > 17 || !(*maillon)->precision)
-		precision = 6;
-	if (!(chaine = ft_strnew(ft_strlen(ft_itoa((int)arg)) + precision)))
+	prec = ft_atoi((*elem)->prec);
+	if (prec > 17 || !(*elem)->prec)
+		prec = 6;
+	if (!(str = ft_strnew(ft_strlen(ft_itoa((int)arg)) + prec)))
 		return (0);
 	if (arg < 0)
-		chaine[0] = '-';
-	if (!(chaine = ft_strcat(chaine, ft_itoa(ABS((int)arg)))))
+		str[0] = '-';
+	if (!(str = ft_strcat(str, ft_itoa(ABS((int)arg)))))
 		return (0);
-	if (!(chaine = ft_strcat(chaine, ".")))
+	if (!(str = ft_strcat(str, ".")))
 		return (0);
-	if (!(chaine = ft_strcat(chaine, doubles_decimales(arg, precision))))
+	if (!(str = ft_strcat(str, double_decimals(arg, prec))))
 		return (0);
-	(*maillon)->chaine = chaine;
-	return (ecrit_int(maillon));
+	(*elem)->str = str;
+	return (write_int(elem));
 }
