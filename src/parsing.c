@@ -27,7 +27,7 @@ int				is_conv(char a)
 		return (0);
 }
 
-static int		conv_parsing(const char *format, int *i, t_elem **elem)
+static int		conv_parsing(const char *format, int *i, t_elem *elem)
 {
 	(*i)++;
 	while (format[*i])
@@ -82,7 +82,7 @@ static int		get_percent(const char *format, int *i)
 	return (0);
 }
 
-static int		percent_parsing(const char *format, int *i, t_elem **elem)
+static int		percent_parsing(const char *format, int *i, t_elem *elem)
 {
 	int		j;
 	int		len;
@@ -90,10 +90,10 @@ static int		percent_parsing(const char *format, int *i, t_elem **elem)
 	if ((format[*i + 1] && format[*i + 1] == '%') ||
 	   		(format[*i + 1] && format[*i + 1] == ' ' && format[*i + 2] && format[*i + 2] == '%'))
 	{
-		(*elem)->plain = 1;
-		if (!((*elem)->str = ft_strnew(1)))
+		elem->plain = 1;
+		if (!(elem->str = ft_strnew(1)))
 			return (0);
-		(*elem)->str[0] = '%';
+		elem->str[0] = '%';
 		*i = (format[*i + 1] == '%') ? *i + 1 : *i + 2;
 		return (1);
 	}
@@ -101,11 +101,11 @@ static int		percent_parsing(const char *format, int *i, t_elem **elem)
 	if (format[*i + 1] && (len = get_percent(format, i)))
 	{
 		(*i)++;
-		(*elem)->plain = 1;
-		if (!((*elem)->width = ft_strnew(len)))
+		elem->plain = 1;
+		if (!(elem->width = ft_strnew(len)))
 			return (0);
 		while (j < len)
-			(*elem)->width[j++] = format[(*i)++];
+			elem->width[j++] = format[(*i)++];
 	}
 	return (1);
 }
@@ -123,15 +123,15 @@ int					parsing(const char *format, t_elem **elems)
 		if (!(elem = new_elem()))
 			return (0);
 		if (format[i] == '%')
-			percent_parsing(format, &i, &elem);
+			percent_parsing(format, &i, elem);
 		if (format[i] == '%' && format[i + 1] && format[i + 1] != '%')
 		{
-			if (!(conv_parsing(format, &i, &elem)))
+			if (!(conv_parsing(format, &i, elem)))
 				return (0);
 		}
 		else
 		{
-			if (!(plain_parsing(format, &i, &elem)))
+			if (!(plain_parsing(format, &i, elem)))
 				return (0);
 		}
 		add_elem(elems, elem);

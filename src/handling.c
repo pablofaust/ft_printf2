@@ -1,5 +1,7 @@
 #include "ft_printf.h"
 
+#include "ft_printf.h"
+
 int			handling(va_list ap, t_elem **elems)
 {
 	t_elem	*ptr;
@@ -11,7 +13,7 @@ int			handling(va_list ap, t_elem **elems)
 		{
 			if (ptr->function)
 			{
-				if (!(ptr->function(ap, &ptr)))
+				if (!(ptr->function(ap, ptr)))
 					return (0);
 			}
 			ptr = ptr->next;
@@ -21,4 +23,3 @@ int			handling(va_list ap, t_elem **elems)
 	else
 		return (1);
 }
-

@@ -6,7 +6,7 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 10:22:10 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/05 10:42:34 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/05 11:20:58 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,17 @@ char		*add_zeros(char *new, char *str, int len, int prec)
 	return (new);
 }
 
-char		*prec_int(t_elem **elem, int prec)
+char		*prec_int(t_elem *elem, int prec)
 {
 	char	*str;
 	char	*new;
 	int		len;
 	int		sign;
 
-	str = (*elem)->str;
+	str = elem->str;
 	len = ft_strlen(str);
 	sign = (str[0] == '-' || str[0] == '+' || str[0] == ' ') ? 1 : 0;
-	if (prec == 0 && (*elem)->prec[0] == '.' && (*elem)->str == NULL)
+	if (prec == 0 && elem->prec[0] == '.' && elem->str == NULL)
 		return (NULL);
 	if (prec > len - sign)
 	{
@@ -56,15 +56,15 @@ char		*prec_int(t_elem **elem, int prec)
 		return (str);
 }
 
-char		*prec_char(t_elem **elem, int prec, int initial)
+char		*prec_char(t_elem *elem, int prec, int initial)
 {
 	char	*str;
 	char	*new;
 	int		i;
 
-	if (prec == 0 && (*elem)->prec[0] == '.')
+	if (prec == 0 && elem->prec[0] == '.')
 		return (NULL);
-	str = (*elem)->str;
+	str = elem->str;
 	if (prec < initial) 
 	{
 		if (!(new = ft_strnew(prec)))
@@ -78,11 +78,11 @@ char		*prec_char(t_elem **elem, int prec, int initial)
 		return (str);
 }
 
-char	*check_zero(t_elem **elem)
+char	*check_zero(t_elem *elem)
 {
 	char	*str;
 
-	if ((*elem)->plus)
+	if (elem->plus)
 	{
 		if (!(str = ft_strnew(1)))
 			return (NULL);
@@ -92,16 +92,16 @@ char	*check_zero(t_elem **elem)
 	return (NULL);
 }
 
-char		*modif_prec(t_elem **elem, int prec, int initial)
+char		*modif_prec(t_elem *elem, int prec, int initial)
 {
 	char	c;
 
-	if ((*elem)->isnull && prec == 0)
+	if (elem->isnull && prec == 0)
 		return (check_zero(elem));
-	c = (*elem)->conv;
+	c = elem->conv;
 	if (c == 'd' || c == 'i' || c == 'u' || c == 'o' || c == 'x' || c == 'X')
 		return (prec_int(elem, prec));
 	else if (c == 's')
 		return (prec_char(elem, prec, initial));
-	return ((*elem)->str);
+	return (elem->str);
 }

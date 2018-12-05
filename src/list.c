@@ -6,7 +6,7 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 10:24:59 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/05 10:25:00 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/05 11:11:51 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 int					nb_elems(t_elem **elems)
 {
-	t_elem		**ptr;
+	t_elem			*ptr;
 	int				nb;
 
 	if (elems == NULL)
 		return (0);
-	ptr = elems;
+	ptr = *elems;
 	nb = 0;
-	while (*ptr)
+	while (ptr)
 	{
-		*ptr = (*ptr)->next;
+		ptr = ptr->next;
 		nb++;
 	}
 	return (nb);

@@ -6,7 +6,7 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 15:41:43 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/05 10:37:46 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/05 10:47:17 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,18 @@ char			*conv_s(va_list ap)
 	return (str);
 }
 
-int				conv_char(va_list ap, t_elem **elem)
+int				conv_char(va_list ap, t_elem *elem)
 {
 	char	*str;
 	char	modif;
 
 	str = NULL;
-	modif = ((*elem)->modif) ? \
-			trans_modif((*elem)->modif) : '0';
-	if ((*elem)->conv == 's' && modif != 'l')
+	modif = (elem->modif) ? \
+			trans_modif(elem->modif) : '0';
+	if (elem->conv == 's' && modif != 'l')
 		str = conv_s(ap);
-	else if ((*elem)->conv == 'c' || (*elem)->conv == 'C')
+	else if (elem->conv == 'c' || elem->conv == 'C')
 		str = conv_c(ap);
-	(*elem)->str = str;
+	elem->str = str;
 	return (write_char(elem));
 }

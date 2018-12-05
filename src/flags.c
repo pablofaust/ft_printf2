@@ -6,25 +6,25 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 10:08:27 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/05 10:40:27 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/05 10:58:34 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char		*add_zero_o(t_elem **elem, char *str, int initial)
+char		*add_zero_o(t_elem *elem, char *str, int initial)
 {
 	int		len;
 	char	*new;
 	int		prec;
 	
-	prec = ft_atoi((*elem)->prec);
+	prec = ft_atoi(elem->prec);
 	len = (str) ? ft_strlen(str) : 0;
-	if ((*elem)->isnull)
+	if (elem->isnull)
 	{
-		if (ft_atoi((*elem)->width) > 1)
-			(*elem)->width = ft_itoa(ft_atoi((*elem)->width) + 1);
-		if ((*elem)->prec == NULL || ft_atoi((*elem)->prec) == 1)
+		if (ft_atoi(elem->width) > 1)
+			elem->width = ft_itoa(ft_atoi(elem->width) + 1);
+		if (elem->prec == NULL || ft_atoi(elem->prec) == 1)
 			return (str);
 	}
 	if (prec > initial)
@@ -39,16 +39,16 @@ char		*add_zero_o(t_elem **elem, char *str, int initial)
 	return (new);
 }
 
-char		*add_0x_x(t_elem **elem)
+char		*add_0x_x(t_elem *elem)
 {
 	char	*str;
 	char	c;
 	int		len;
 	char	*new;
 
-	c = (*elem)->conv;
-	str = (*elem)->str;
-	if ((*elem)->isnull)
+	c = elem->conv;
+	str = elem->str;
+	if (elem->isnull)
 		return (str);
 	len = ft_strlen(str);
 	if (len == 1 && str[0] == '0')
@@ -62,25 +62,25 @@ char		*add_0x_x(t_elem **elem)
 	return (new);
 }
 
-char		*modif_hash(t_elem **elem, char c, int initial)
+char		*modif_hash(t_elem *elem, char c, int initial)
 {
 	if (c == 'o' || c == 'O')
-		return (add_zero_o(elem, (*elem)->str, initial));
+		return (add_zero_o(elem, elem->str, initial));
 	else if (c == 'x' || c == 'X')
 		return (add_0x_x(elem));
-	return ((*elem)->str);
+	return (elem->str);
 }
 
-char		*modif_plus(t_elem **elem, char c)
+char		*modif_plus(t_elem *elem, char c)
 {
 	char	*str;
 	char	*new;
 	int		len;
 	char	conv;
 
-	str = (*elem)->str;
+	str = elem->str;
 	len = ft_strlen(str);
-	conv = (*elem)->conv;
+	conv = elem->conv;
 	if (conv == 'd' || conv == 'i' || conv == 'f')
 	{
 		if (str[0] != '-')

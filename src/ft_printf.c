@@ -43,7 +43,7 @@ static int		percent_width(t_elem *elem)
 	return (1);
 }
 
-int		read_all(t_elem **elems)
+int		read_all(t_elem *elems)
 {
 	t_elem	*ptr;
 	int		len;
@@ -51,7 +51,7 @@ int		read_all(t_elem **elems)
 
 	len = 0;
 	count = 0;
-	ptr = *elems;
+	ptr = elems;
 	while (ptr)
 	{
 		if (ptr->str != NULL)
@@ -86,6 +86,6 @@ int		ft_printf(const char *format, ...)
 	va_start(ap, format);
 	if (!(handling(ap, &elems)))
 		return (-1);
-	count = read_all(&elems);
+	count = read_all(elems);
 	return (count);
 }

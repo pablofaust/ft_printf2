@@ -6,7 +6,7 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 15:46:40 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/05 09:49:09 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/05 10:49:27 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ int			get_base(char c)
 	return (10);
 }
 
-char		*hexa(long long arg, t_elem **elem)
+char		*hexa(long long arg, t_elem *elem)
 {
 	char	*str;
 	char	*itoa;
 
-	str = (*elem)->str;
+	str = elem->str;
 	if (!(itoa = ft_itoa_base_ll(arg, 16)))
 		return (str);
 	if (!(str = ft_strnew(ft_strlen(itoa) + 2)))
@@ -45,21 +45,21 @@ int			exceptions(char c)
 	return (0);
 }
 
-int			conv_uint(va_list ap, t_elem **elem)
+int			conv_uint(va_list ap, t_elem *elem)
 {
 	char	*str;
 	int		base;
 	char	modif;
 
 	str = NULL;
-	base = get_base((*elem)->conv);
-	modif = ((*elem)->modif) ?\
-			trans_modif((*elem)->modif) : '0';
-	if (modif == 'h' && !exceptions((*elem)->conv))
+	base = get_base(elem->conv);
+	modif = (elem->modif) ?\
+			trans_modif(elem->modif) : '0';
+	if (modif == 'h' && !exceptions(elem->conv))
 		str = ft_itoa_base((unsigned short)va_arg(ap, unsigned int), base);
-	else if (modif == 'H' && !exceptions((*elem)->conv))
+	else if (modif == 'H' && !exceptions(elem->conv))
 		str = ft_itoa_base((unsigned char)va_arg(ap, unsigned int), base);
-	else if (modif == 'l' || exceptions((*elem)->conv))
+	else if (modif == 'l' || exceptions(elem->conv))
 		str = ft_itoa_base_ll(va_arg(ap, unsigned long), base);
 	else if (modif == 'L')
 		str = ft_itoa_base_ll(va_arg(ap, unsigned long long), base);
@@ -69,26 +69,26 @@ int			conv_uint(va_list ap, t_elem **elem)
 		str = ft_itoa_base_ll(va_arg(ap, size_t), base);
 	else
 		str = ft_itoa_base(va_arg(ap, unsigned int), base);
-	(*elem)->str = str;
+	elem->str = str;
 	return (write_int(elem));
 }
 
-int			conv_int(va_list ap, t_elem **elem)
+int			conv_int(va_list ap, t_elem *elem)
 {
 	char	*str;
 	char	modif;
 
 	str = NULL;
-	modif = ((*elem)->modif) ? trans_modif((*elem)->modif) : '0';
-	if ((*elem)->conv == 'p')
+	modif = (elem->modif) ? trans_modif(elem->modif) : '0';
+	if (elem->conv == 'p')
 		str = hexa((long long)va_arg(ap, void*), elem);
-	else if (modif == '0' && (*elem)->conv != 'D')
+	else if (modif == '0' && elem->conv != 'D')
 		str = ft_itoa(va_arg(ap, int));
-	else if (modif == 'H' && (*elem)->conv != 'D')
+	else if (modif == 'H' && elem->conv != 'D')
 		str = ft_itoa((char)va_arg(ap, int));
-	else if (modif == 'h' && (*elem)->conv != 'D')
+	else if (modif == 'h' && elem->conv != 'D')
 		str = ft_itoa_ll((short)va_arg(ap, int));
-	else if (modif == 'l' || (*elem)->conv == 'D')
+	else if (modif == 'l' || elem->conv == 'D')
 		str = ft_itoa_ll(va_arg(ap, long));
 	else if (modif == 'L')
 		str = ft_itoa_ll(va_arg(ap, long long));
@@ -96,6 +96,6 @@ int			conv_int(va_list ap, t_elem **elem)
 		str = ft_itoa_ll(va_arg(ap, intmax_t));
 	else if (modif == 'z')
 		str = ft_itoa_ll(va_arg(ap, ssize_t));
-	(*elem)->str = str;
+	elem->str = str;
 	return (write_int(elem));
 }

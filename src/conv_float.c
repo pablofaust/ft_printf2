@@ -6,7 +6,7 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 15:45:55 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/05 10:38:01 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/05 11:08:47 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*double_decimals(double n, int prec)
 	return (round_decimals(str, tmp / ft_int_pow(tmp)));
 }
 
-int		conv_float(va_list ap, t_elem **elem)
+int		conv_float(va_list ap, t_elem *elem)
 {
 	char	*str;
 	char	modif;
@@ -72,11 +72,10 @@ int		conv_float(va_list ap, t_elem **elem)
 	int		prec;
 
 	str = NULL;
-	modif = ((*elem)->modif) ?\
-			trans_modif((*elem)->modif) : '0';
+	modif = (elem->modif) ? trans_modif(elem->modif) : '0';
 	arg = (modif == 'L') ? va_arg(ap, long double) : va_arg(ap, double);
-	prec = ft_atoi((*elem)->prec);
-	if (prec > 17 || !(*elem)->prec)
+	prec = ft_atoi(elem->prec);
+	if (prec > 17 || !elem->prec)
 		prec = 6;
 	if (!(str = ft_strnew(ft_strlen(ft_itoa((int)arg)) + prec)))
 		return (0);
@@ -88,6 +87,6 @@ int		conv_float(va_list ap, t_elem **elem)
 		return (0);
 	if (!(str = ft_strcat(str, double_decimals(arg, prec))))
 		return (0);
-	(*elem)->str = str;
+	elem->str = str;
 	return (write_int(elem));
 }
