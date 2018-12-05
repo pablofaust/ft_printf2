@@ -6,7 +6,7 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 15:47:00 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/05 11:06:49 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/05 12:52:05 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ int			write_int(t_elem *elem)
 		elem->neg = 1;
 	prec = (elem->prec) ? ft_atoi(elem->prec) : 0;
 	if (elem->plus)
-		elem->str = modif_plus(elem, '+');	
+		elem->str = modif_plus(elem, '+');
 	if (!elem->plus && elem->space)
-		elem->str = modif_plus(elem, ' ');	
+		elem->str = modif_plus(elem, ' ');
 	if (elem->prec != NULL)
 		elem->str = modif_prec(elem, prec, initial);
 	if (elem->hash)
