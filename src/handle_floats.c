@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_floats.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/12/05 12:12:10 by pfaust            #+#    #+#             */
+/*   Updated: 2018/12/05 12:12:25 by pfaust           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-char	*double_decimals(double n, int len)
+char				*double_decimals(double n, int len)
 {
 	char	*decimals;
 	int		i;
@@ -17,7 +29,7 @@ char	*double_decimals(double n, int len)
 	return (decimals);
 }
 
-static void		neg_exp(double n, int *exp)
+static void			neg_exp(double n, int *exp)
 {
 	char	*decimals;
 	int		i;
@@ -29,7 +41,7 @@ static void		neg_exp(double n, int *exp)
 	*exp = -i - 1;
 }
 
-char			*double_reals(double n, int *exp)
+char				*double_reals(double n, int *exp)
 {
 	char	*reals;
 	int		i;
@@ -47,7 +59,7 @@ char			*double_reals(double n, int *exp)
 				j = i + 1;
 			i++;
 		}
-		*exp = (i > j ) ? i - j : j - 1;
+		*exp = (i > j) ? i - j : j - 1;
 		return (ft_dir_strncpy(reals, ABS(*exp), '>'));
 	}
 	else
