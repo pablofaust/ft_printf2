@@ -6,7 +6,7 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 10:18:53 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/05 12:50:30 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/05 15:43:46 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ char		*width_bef(t_elem *elem, char *new, int prec, int initial)
 	else if ((c == 'x' || c == 'X') && elem->hash)
 		add = 2;
 	i = 0;
+	if (elem->conv == 's' && !ft_strlen(elem->str) && ft_atoi(elem->width))
+		prec = 0;
 	if (prec > initial + elem->neg)
 		prec = prec - initial + elem->neg;
 	else if (prec <= initial && prec < ft_atoi(elem->width))
