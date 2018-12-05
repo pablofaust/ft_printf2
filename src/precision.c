@@ -6,7 +6,7 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 10:22:10 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/05 11:20:58 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/05 12:47:16 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char		*prec_char(t_elem *elem, int prec, int initial)
 	if (prec == 0 && elem->prec[0] == '.')
 		return (NULL);
 	str = elem->str;
-	if (prec < initial) 
+	if (prec < initial)
 	{
 		if (!(new = ft_strnew(prec)))
 			return (str);
@@ -78,7 +78,7 @@ char		*prec_char(t_elem *elem, int prec, int initial)
 		return (str);
 }
 
-char	*check_zero(t_elem *elem)
+char		*check_zero(t_elem *elem)
 {
 	char	*str;
 
