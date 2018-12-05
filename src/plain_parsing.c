@@ -6,18 +6,16 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 10:31:06 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/05 11:02:01 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/05 12:40:57 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int			add_str(t_elem *elem, int j, char a)
+static int		add_str(t_elem *elem, int j, char a, int i)
 {
 	char		*new;
-	int			i;
 
-	i = 0;
 	if (elem->str == NULL)
 	{
 		if (!(elem->str = malloc(sizeof(char) * 2)))
@@ -51,13 +49,14 @@ int				plain_parsing(const char *format, int *i, t_elem *elem)
 	{
 		if (format[*i] == '%')
 		{
-			if (format[*i - 1] && format[*i - 1] != '%' && format[*i + 1] && format[*i + 1] != '%')
+			if (format[*i - 1] && format[*i - 1] != '%' \
+					&& format[*i + 1] && format[*i + 1] != '%')
 			{
 				(*i)--;
 				return (1);
 			}
 		}
-		if (!(add_str(elem, j, format[*i])))
+		if (!(add_str(elem, j, format[*i], 0)))
 			return (0);
 		j++;
 		(*i)++;
