@@ -6,7 +6,7 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 10:18:53 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/05 15:43:46 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/06 10:43:59 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,10 @@ char		*width_bef(t_elem *elem, char *new, int prec, int initial)
 		prec = 0;
 	if (prec > initial + elem->neg)
 		prec = prec - initial + elem->neg;
-	else if (prec <= initial && prec < ft_atoi(elem->width))
+	else if (prec != 0 && prec <= initial && prec < ft_atoi(elem->width) && !elem->neg)
 		prec = 0;
+	else if (prec != 0 && prec <= initial && prec < ft_atoi(elem->width) && elem->neg)
+		prec = elem->neg;
 	while (i < ft_atoi(elem->width) - initial - add - prec)
 		new[i++] = ' ';
 	j = 0;
