@@ -6,7 +6,7 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 15:41:43 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/05 15:27:21 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/06 10:08:52 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ char			*conv_c(va_list ap)
 
 	c = va_arg(ap, int);
 	str = NULL;
+	if (!(str = ft_strnew(1)))
+		return (NULL);
 	if (c)
-	{
-		if (!(str = ft_strnew(1)))
-			return (NULL);
 		str[0] = c;
-	}
+	else
+		return (NULL);
 	return (str);
 }
 
@@ -76,7 +76,13 @@ int				conv_char(va_list ap, t_elem *elem)
 	if (elem->conv == 's' && modif != 'l')
 		str = conv_s(ap);
 	else if (elem->conv == 'c' || elem->conv == 'C')
-		str = conv_c(ap);
+	{
+		if (!(str = conv_c(ap)))
+		{
+			elem->isnull = 1;
+			str = NULL;
+		}
+	}
 	elem->str = str;
 	return (write_char(elem));
 }
