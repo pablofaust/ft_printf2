@@ -6,7 +6,7 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 12:10:04 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/06 10:13:01 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/06 10:21:49 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,12 @@ static int		percent_width(t_elem *elem)
 
 int				check_isnull(t_elem *ptr)
 {
+	int		nb;
+
+	nb = (ft_atoi(ptr->width) > 0) ? ft_atoi(ptr->width) : 1;
 	if (ptr->isnull && ptr->conv == 'c')
 	{
+		write(1, " ", nb - 1);
 		write(1, "\0", 1);
 		return (1);
 	}
