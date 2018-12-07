@@ -6,27 +6,34 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 10:24:59 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/05 12:16:38 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/07 10:37:15 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int				nb_elems(t_elem **elems)
+t_elem		*ft_lstfree(t_elem *elems)
 {
-	t_elem			*ptr;
-	int				nb;
+	t_elem *ptr;
+	t_elem	*next;
 
-	if (elems == NULL)
-		return (0);
-	ptr = *elems;
-	nb = 0;
+	ptr = elems;
 	while (ptr)
 	{
-		ptr = ptr->next;
-		nb++;
+		next = ptr->next;
+		if (ptr->width)
+			free(ptr->width);
+		if (ptr->prec)
+			free(ptr->prec);
+		if (ptr->modif)
+			free(ptr->modif);
+		if (ptr->str)
+			free(ptr->str);
+		ptr->next = NULL;
+		free(ptr);
+		ptr = next;
 	}
-	return (nb);
+	return (NULL);
 }
 
 t_elem			*new_elem(void)
