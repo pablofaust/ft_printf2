@@ -6,7 +6,7 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 15:46:40 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/07 11:23:06 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/07 16:00:13 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,13 @@ char		*hexa(long long arg)
 
 	if (!(itoa = ft_itoa_base_ll(arg, 16)))
 		return (NULL);
-	if (!(str = ft_strnew(ft_strlen(itoa) + 2)))
+	/*if (!(str = ft_strnew(ft_strlen(itoa) + 2)))
 	{
+		printf("fail maloc etape : %s, itoa len : %d, address : %p \n", itoa, ft_strlen(itoa), &itoa);
 		if (itoa)
 			free(itoa);
 		return (NULL);
-	}
+	}*/
 	if (!(str = ft_strjoin("0x", itoa)))
 	{
 		if (str)
@@ -45,7 +46,10 @@ char		*hexa(long long arg)
 		return (NULL);
 	}
 	if (itoa)
+	{
 		free(itoa);
+		itoa = NULL;
+	}
 	return (str);
 }
 
