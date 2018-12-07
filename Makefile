@@ -6,13 +6,13 @@
 #    By: pfaust <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/20 11:10:04 by pfaust            #+#    #+#              #
-#    Updated: 2018/12/05 12:20:21 by pfaust           ###   ########.fr        #
+#    Updated: 2018/12/07 11:23:28 by pfaust           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		= libftprintf.a
 
-FLAGS 		= -Wall -Wextra -Werror
+FLAGS 		= -g -Wall -Wextra -Werror
 
 LIBS 		= ./libs/libft/libft.a
 

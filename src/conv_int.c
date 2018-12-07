@@ -6,7 +6,7 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 15:46:40 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/06 10:25:23 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/07 11:23:06 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,29 @@ int			get_base(char c)
 	return (10);
 }
 
-char		*hexa(long long arg, t_elem *elem)
+char		*hexa(long long arg)
 {
 	char	*str;
 	char	*itoa;
 
-	str = elem->str;
 	if (!(itoa = ft_itoa_base_ll(arg, 16)))
-		return (str);
+		return (NULL);
 	if (!(str = ft_strnew(ft_strlen(itoa) + 2)))
-		return (str);
+	{
+		if (itoa)
+			free(itoa);
+		return (NULL);
+	}
 	if (!(str = ft_strjoin("0x", itoa)))
-		return (str);
+	{
+		if (str)
+			free(str);
+		if (itoa)
+			free(itoa);
+		return (NULL);
+	}
+	if (itoa)
+		free(itoa);
 	return (str);
 }
 
@@ -81,7 +92,7 @@ int			conv_int(va_list ap, t_elem *elem)
 	str = NULL;
 	modif = (elem->modif) ? trans_modif(elem->modif) : '0';
 	if (elem->conv == 'p')
-		str = hexa((long long)va_arg(ap, void*), elem);
+		str = hexa((long long)va_arg(ap, void*));
 	else if (modif == '0' && elem->conv != 'D')
 		str = ft_itoa(va_arg(ap, int));
 	else if (modif == 'H' && elem->conv != 'D')
