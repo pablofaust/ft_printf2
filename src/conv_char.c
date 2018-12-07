@@ -6,7 +6,7 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 15:41:43 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/06 10:08:52 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/07 10:50:29 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ char			*conv_s(va_list ap)
 {
 	char	*arg;
 	char	*str;
+	int		i;
 
 	arg = va_arg(ap, char*);
 	str = NULL;
@@ -55,7 +56,12 @@ char			*conv_s(va_list ap)
 	{
 		if (!(str = ft_strnew(ft_strlen(arg))))
 			return (NULL);
-		str = arg;
+		i = 0;
+		while (arg[i])
+		{
+			str[i] = arg[i];
+			i++;
+		}
 	}
 	else
 	{

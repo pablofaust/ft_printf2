@@ -6,7 +6,7 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 13:40:23 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/05 13:45:27 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/07 10:45:15 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,6 @@ char					*handle_width(t_elem *elem, int width, int init);
 char					*doutoa(double n);
 char					*double_reals(double n, int *exp);
 char					*double_decimals(double n, int len);
+int						percent_width(t_elem *elem);
+t_elem					*free_elems(t_elem *elems);
 #endif

@@ -6,7 +6,7 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 10:18:53 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/06 10:43:59 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/07 11:10:24 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,36 +54,31 @@ char		*width_zeros(t_elem *elem, char *new, int width)
 	return (new);
 }
 
-char		*width_bef(t_elem *elem, char *new, int prec, int initial)
+char		*width_bef(t_elem *e, char *new, int p, int initial)
 {
 	int		i;
 	int		j;
 	int		add;
-	char	c;
 
-	c = elem->conv;
 	add = 0;
-	if ((c == 'o' || c == 'O') && elem->hash)
+	if (((e->conv == 'o' || e->conv == 'O') && e->hash) || ((e->conv == 'd' \
+	|| e->conv == 'i') && (e->plus || e->space) && e->str[0] != '-'))
 		add = 1;
-	else if ((c == 'd' || c == 'i') && (elem->plus || \
-				elem->space) && elem->str[0] != '-')
-		add = 1;
-	else if ((c == 'x' || c == 'X') && elem->hash)
+	else if ((e->conv == 'x' || e->conv == 'X') && e->hash)
 		add = 2;
 	i = 0;
-	if (elem->conv == 's' && !ft_strlen(elem->str) && ft_atoi(elem->width))
-		prec = 0;
-	if (prec > initial + elem->neg)
-		prec = prec - initial + elem->neg;
-	else if (prec != 0 && prec <= initial && prec < ft_atoi(elem->width) && !elem->neg)
-		prec = 0;
-	else if (prec != 0 && prec <= initial && prec < ft_atoi(elem->width) && elem->neg)
-		prec = elem->neg;
-	while (i < ft_atoi(elem->width) - initial - add - prec)
+	if ((e->conv == 's' && !ft_strlen(e->str) && ft_atoi(e->width)) \
+	|| (p != 0 && p <= initial && p < ft_atoi(e->width) && !e->neg))
+		p = 0;
+	if (p > initial + e->neg)
+		p = p - initial + e->neg;
+	else if (p != 0 && p <= initial && p < ft_atoi(e->width) && e->neg)
+		p = e->neg;
+	while (i < ft_atoi(e->width) - initial - add - p)
 		new[i++] = ' ';
 	j = 0;
-	while (elem->str[j])
-		new[i++] = elem->str[j++];
+	while (e->str[j])
+		new[i++] = e->str[j++];
 	return (new);
 }
 

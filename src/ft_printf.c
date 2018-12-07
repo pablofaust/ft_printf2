@@ -6,7 +6,7 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 12:10:04 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/06 10:31:36 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/07 10:54:44 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,31 +30,6 @@ char			*uppercase(char *str)
 	return (new);
 }
 
-static int		percent_width(t_elem *elem)
-{
-	int		len;
-	int		i;
-
-	free(elem->str);
-	len = ft_atoi(elem->width);
-	if (!(elem->str = ft_strnew(ABS(len))))
-		return (0);
-	i = 0;
-	if (len < 0)
-	{
-		elem->str[i++] = '%';
-		while (i < ABS(len))
-			elem->str[i++] = (elem->width[0] == '0') ? '0' : ' ';
-	}
-	else
-	{
-		while (i < ABS(len) - 1)
-			elem->str[i++] = (elem->width[0] == '0') ? '0' : ' ';
-		elem->str[i] = '%';
-	}
-	return (1);
-}
-
 int				check_isnull(t_elem *ptr)
 {
 	int		nb;
@@ -69,29 +44,37 @@ int				check_isnull(t_elem *ptr)
 	return (1);
 }
 
+int				read_simple(t_elem *ptr, int *count)
+{
+	int		len;
+
+	len = 0;
+	if (ptr->plain == 1 && ptr->width != NULL)
+		if (!(percent_width(ptr)))
+			return (0);
+	len = ft_strlen(ptr->str);
+	if (ptr->conv == 'X')
+		ptr->str = uppercase(ptr->str);
+	write(1, ptr->str, len);
+	*count = *count + len;
+	return (1);
+}
+
 int				read_all(t_elem *elems)
 {
 	t_elem	*ptr;
-	int		len;
 	int		count;
 
-	len = 0;
 	count = 0;
 	ptr = elems;
 	while (ptr)
-	{	
+	{
 		if (check_isnull(ptr))
 			;
 		if (ptr->str != NULL)
 		{
-			if (ptr->plain == 1 && ptr->width != NULL)
-				if (!(percent_width(ptr)))
-					return (0);
-			len = ft_strlen(ptr->str);
-			if (ptr->conv == 'X')
-				ptr->str = uppercase(ptr->str);
-			write(1, ptr->str, len);
-			count = count + len;
+			if (!(read_simple(ptr, &count)))
+				return (0);
 		}
 		else if (!ptr->str && ptr->conv == 'c')
 			count = (ptr->width) ? count + ft_atoi(ptr->width) : count + 1;
@@ -113,5 +96,6 @@ int				ft_printf(const char *format, ...)
 	if (!(handling(ap, &elems)))
 		return (-1);
 	count = read_all(elems);
+	free_elems(elems);
 	return (count);
 }

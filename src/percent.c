@@ -6,11 +6,36 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 12:19:21 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/05 12:33:53 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/07 10:43:54 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int				percent_width(t_elem *elem)
+{
+	int		len;
+	int		i;
+
+	free(elem->str);
+	len = ft_atoi(elem->width);
+	if (!(elem->str = ft_strnew(ABS(len))))
+		return (0);
+	i = 0;
+	if (len < 0)
+	{
+		elem->str[i++] = '%';
+		while (i < ABS(len))
+			elem->str[i++] = (elem->width[0] == '0') ? '0' : ' ';
+	}
+	else
+	{
+		while (i < ABS(len) - 1)
+			elem->str[i++] = (elem->width[0] == '0') ? '0' : ' ';
+		elem->str[i] = '%';
+	}
+	return (1);
+}
 
 static int		get_percent(const char *format, int *i)
 {

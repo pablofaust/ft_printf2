@@ -6,16 +6,16 @@
 /*   By: pfaust <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 10:24:59 by pfaust            #+#    #+#             */
-/*   Updated: 2018/12/07 10:37:15 by pfaust           ###   ########.fr       */
+/*   Updated: 2018/12/07 10:49:03 by pfaust           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-t_elem		*ft_lstfree(t_elem *elems)
+t_elem			*free_elems(t_elem *elems)
 {
-	t_elem *ptr;
-	t_elem	*next;
+	t_elem		*ptr;
+	t_elem		*next;
 
 	ptr = elems;
 	while (ptr)
